@@ -24,5 +24,10 @@ namespace BPMbenchmarksGenerator
         {
             InitializeComponent();
         }
+
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
