@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <TabControl x:Name="tabSystem" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top" Width="499">
+
+            <TabItem Header="Generate" >
+                <StackPanel Background="White">
+                    
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Customize">
+                <StackPanel Background="White">
+
+                </StackPanel>
+            </TabItem>
+            
+        </TabControl>
     </Grid>
 </Window>
