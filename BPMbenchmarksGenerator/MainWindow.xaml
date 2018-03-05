@@ -11,8 +11,8 @@
 
             <TabItem Header="Generate" >
                 <StackPanel Background="White">
-                    <Label x:Name="lblInstancesSetsNumber" Content="Specify number of instances sets to generate:"/>
-                    <TextBox Height="23" TextWrapping="Wrap" Text="TextBox"/>
+                    <Label x:Name="lblInstancesSetsNumber" Content="Number of instances sets to generate:"/>
+                    <TextBox x:Name="txtInstancesSetsNumber" Height="23" TextWrapping="Wrap"/>
                     <Button x:Name="btnGenerate" Content="Generate" Click="btnGenerate_Click"/>
                 </StackPanel>
             </TabItem>
