@@ -11,18 +11,43 @@
 
             <TabItem Header="Generate" >
                 <StackPanel Background="White">
-                    <Label x:Name="lblInstancesSetsNumber" Content="Number of instances sets to generate:"/>
-                    <TextBox x:Name="txtInstancesSetsNumber" Height="23" TextWrapping="Wrap"/>
-                    <Button x:Name="btnGenerate" Content="Generate" Click="btnGenerate_Click"/>
+                    
+                    <ToolBar x:Name="tlbGenerateTab" Height="31" Margin="0,10,10,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220*"/>
+                                <ColumnDefinition Width="273*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Width="50" x:Name="btnPath" Content="Path" Grid.Column="0" Click="btnPath_Click" />
+                            <Button Width="50" x:Name="btnExit" Content="Exit" Grid.Column="1" Click="btnExit_Click"/>
+                        </Grid>
+
+                </ToolBar>
+                    
+                    <Grid Margin="10,10,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220*"/>
+                            <ColumnDefinition Width="273*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblInstancesSetsNumber" Grid.Column="0" 
+                               Content="Number of instances sets to generate:" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txtInstancesSetsNumber" TextWrapping="Wrap" Grid.Column="1"/>
+                    </Grid>
+                    
+                    <Button x:Name="btnGenerate" Margin="10,10,10,0" Content="Generate" Click="btnGenerate_Click"/>
+                    
+                    <TextBox x:Name="txtStatus" IsReadOnly="True" Height="141" TextWrapping="Wrap" 
+                             Text="Ready for benchmark generation." Margin="10,10,10,0"/>
+                    
                 </StackPanel>
             </TabItem>
-            
+
             <TabItem Header="Customize">
                 <StackPanel Background="White">
 
                 </StackPanel>
             </TabItem>
-            
+
         </TabControl>
     </Grid>
 </Window>

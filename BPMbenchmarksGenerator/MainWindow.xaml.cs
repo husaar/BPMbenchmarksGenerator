@@ -25,6 +25,16 @@ namespace BPMbenchmarksGenerator
             InitializeComponent();
         }
 
+        private void btnPath_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             string stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
@@ -35,16 +45,17 @@ namespace BPMbenchmarksGenerator
                 intInstancesSetsNumber = ParseStringToInteger(stringInstancesSetsNumber, 1);
                 MessageBox.Show("stringInstancesSetsNumber: ", stringInstancesSetsNumber);
             }
-            catch(FormatException fex)
+            catch (FormatException fex)
             {
                 MessageBox.Show(fex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
         }
+
 
         private int ParseStringToInteger(string s, int lowestPossibleNumber)
         {
@@ -54,13 +65,13 @@ namespace BPMbenchmarksGenerator
             {
                 integer = int.Parse(s);
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 exceptionMessage = "Provided number has to be integer!";
                 throw new FormatException(exceptionMessage);
             }
 
-            if(integer < lowestPossibleNumber)
+            if (integer < lowestPossibleNumber)
             {
                 exceptionMessage = string.Format($"Integer value should be at least {lowestPossibleNumber.ToString()}.");
                 throw new Exception(exceptionMessage);
@@ -68,5 +79,6 @@ namespace BPMbenchmarksGenerator
 
             return integer;
         }
+
     }
 }
