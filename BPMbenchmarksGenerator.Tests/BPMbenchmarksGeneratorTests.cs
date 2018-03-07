@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMbenchmarksGenerator.Tests
 {
-    public class Class1
+    public class BPMbenchmarksGeneratorTests
     {
     }
 }
