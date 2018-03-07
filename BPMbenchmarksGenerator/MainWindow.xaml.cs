@@ -23,6 +23,7 @@ namespace BPMbenchmarksGenerator
         public MainWindow()
         {
             InitializeComponent();
+            this.radioAllCases.IsChecked = true;
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
