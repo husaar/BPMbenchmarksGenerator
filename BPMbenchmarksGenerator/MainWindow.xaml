@@ -17,19 +17,20 @@
 
             <TabItem Header="Customize">
                 <StackPanel Background="White">
-                    <RadioButton x:Name="radioAllCases" GroupName="BenchmarksParameters" Content="Generate all benchmarks cases."
+                    <RadioButton x:Name="radioAllCases" GroupName="BenchmarksParameters" Content="Generate all standard benchmark instances."
                                  Margin="10,10,10,0"/>
 
                     <RadioButton x:Name="radioCustomSemi" GroupName="BenchmarksParameters"
                                  Margin="10,10,10,0">
                         <StackPanel Width="300">
-                            <TextBlock Text="Generate benchmark cases with default range."/>
+                            <TextBlock Text="Generate benchmark instances with default range."/>
                             <Grid Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="59*"/>
                                     <ColumnDefinition Width="91*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
@@ -55,19 +56,23 @@
                                     <ComboBoxItem Content="[2,4]"/>
                                     <ComboBoxItem Content="[4,8]"/>
                                 </ComboBox>
+                                <TextBlock Text="Machine capacity:" Grid.Column="0" Grid.Row="3"/>
+                                <TextBlock Text="  10" Grid.Column="1" Grid.Row="3"/>
+
                             </Grid>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton  x:Name="radioCustomFull" GroupName="BenchmarksParameters"
                                   Margin="10,10,10,0">
                         <StackPanel Width="300">
-                            <TextBlock Text="Generate benchmark cases with custom range."/>
+                            <TextBlock Text="Generate benchmark instances with custom range."/>
                             <Grid Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="61*"/>
                                     <ColumnDefinition Width="89*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
@@ -78,6 +83,8 @@
                                 <TextBox Grid.Column="1" Grid.Row="1" Margin="42,0" IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
                                 <TextBlock Text="Job size: " Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,169,0"/>
                                 <TextBox Grid.Column="1" Grid.Row="2" Margin="42,0" IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                <TextBlock Text="Machine capacity: " Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,169,0"/>
+                                <TextBox Grid.Column="1" Grid.Row="3" Margin="42,0" IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
                             </Grid>
                         </StackPanel>
 
