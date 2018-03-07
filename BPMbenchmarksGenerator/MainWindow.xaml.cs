@@ -44,7 +44,7 @@ namespace BPMbenchmarksGenerator
             int intInstancesSetsNumber = -1;
             try
             {
-                intInstancesSetsNumber = ParseStringToInteger(stringInstancesSetsNumber, 1);
+                intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, 1);
                 MessageBox.Show("stringInstancesSetsNumber: ", stringInstancesSetsNumber);
             }
             catch (FormatException fex)
@@ -56,30 +56,6 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
-        }
-
-
-        private int ParseStringToInteger(string s, int lowestPossibleNumber)
-        {
-            int integer = -2;
-            string exceptionMessage = null;
-            try
-            {
-                integer = int.Parse(s);
-            }
-            catch (FormatException)
-            {
-                exceptionMessage = "Provided number has to be integer!";
-                throw new FormatException(exceptionMessage);
-            }
-
-            if (integer < lowestPossibleNumber)
-            {
-                exceptionMessage = string.Format($"Integer value should be at least {lowestPossibleNumber.ToString()}.");
-                throw new Exception(exceptionMessage);
-            }
-
-            return integer;
         }
 
     }
