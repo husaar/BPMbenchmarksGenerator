@@ -23,7 +23,6 @@ namespace BPMbenchmarksGenerator
         public MainWindow()
         {
             InitializeComponent();
-            this.radioAllCases.IsChecked = true;
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -39,7 +38,7 @@ namespace BPMbenchmarksGenerator
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             string stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
-            
+
             int intInstancesSetsNumber = -1;
             try
             {
