@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMbenchmarksGenerator
 {
-    class BPMGeneratorMethods
+    public class BPMGeneratorMethods
     {
         public static int ParseStringToInteger(string s, int lowestPossibleNumber)
         {

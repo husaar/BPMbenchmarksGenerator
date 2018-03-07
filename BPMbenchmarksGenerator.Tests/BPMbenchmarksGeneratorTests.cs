@@ -13,6 +13,6 @@ namespace BPMbenchmarksGenerator.Tests
     [TestFixture]
     public class BPMbenchmarksGeneratorTests
     {
-        
+
     }
 }
