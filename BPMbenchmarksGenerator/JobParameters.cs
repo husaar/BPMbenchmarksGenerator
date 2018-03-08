@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMbenchmarksGenerator
 {
-    public class JobParameters : IJobParameters
+    public class JobParameters
     {
         public int JobParametersIndex { get; }
         public int JobProcessingTime { get; }
