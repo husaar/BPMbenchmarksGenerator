@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BenchmarkInstanceTests.cs" />
     <Compile Include="BPMbenchmarksGeneratorTests.cs" />
     <Compile Include="BPMGeneratorMethodsTests.cs" />
     <Compile Include="JobParametersTests.cs" />
