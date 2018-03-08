@@ -10,7 +10,7 @@ namespace BPMbenchmarksGenerator
     public class BenchmarkInstance
     {
         public int NumberOfJobs { get; }
-        private int MachineCapacity { get; }
+        public int MachineCapacity { get; }
 
         private readonly List<JobParameters> jobsList;
         private ReadOnlyCollection<JobParameters> readonlyJobList;
@@ -32,7 +32,7 @@ namespace BPMbenchmarksGenerator
         {
             NumberOfJobs = numberOfJobs;
             MachineCapacity = machineCapacity;
-            jobsList = jobList;
+            jobsList = jobList;            
         }
 
         public override string ToString()

@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="BPMbenchmarksGeneratorTests.cs" />
     <Compile Include="BPMGeneratorMethodsTests.cs" />
+    <Compile Include="JobParametersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,13 +69,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\BPMbenchmarksGenerator\BPMbenchmarksGenerator.csproj">
       <Project>{bafdcd81-1d0a-4c51-a369-06348b61ddea}</Project>
       <Name>BPMbenchmarksGenerator</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

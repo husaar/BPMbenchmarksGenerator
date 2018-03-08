@@ -8,9 +8,9 @@ namespace BPMbenchmarksGenerator
 {
     public class JobParameters
     {
-        private int JobParametersIndex { get; }
-        private int JobProcessingTime { get; }
-        private int JobSize { get; } 
+        public int JobParametersIndex { get; }
+        public int JobProcessingTime { get; }
+        public int JobSize { get; } 
 
         public JobParameters(int jobIndex, int jobProcessingTime, int jobSize)
         {
