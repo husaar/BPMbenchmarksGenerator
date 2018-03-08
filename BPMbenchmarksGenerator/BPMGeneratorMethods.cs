@@ -16,6 +16,11 @@ namespace BPMbenchmarksGenerator
             {
                 integer = int.Parse(s);
             }
+            catch (ArgumentNullException)
+            {
+                exceptionMessage = "Value not provided. Please specify number in correct field.";
+                throw new ArgumentNullException(exceptionMessage);
+            }
             catch (FormatException)
             {
                 exceptionMessage = "Provided number has to be integer!";

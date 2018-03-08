@@ -25,6 +25,7 @@ namespace BPMbenchmarksGenerator
             InitializeComponent();
 
             this.radioAllCases.IsChecked = true;
+            this.txtInstancesSetsNumber = null;
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -39,13 +40,19 @@ namespace BPMbenchmarksGenerator
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            string stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
+
+            string stringInstancesSetsNumber = null;
 
             int intInstancesSetsNumber = -1;
             try
             {
+                stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
                 intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, 1);
                 MessageBox.Show("stringInstancesSetsNumber: ", stringInstancesSetsNumber);
+            }
+            catch(ArgumentNullException nex)
+            {
+                MessageBox.Show(nex.Message);
             }
             catch (FormatException fex)
             {

@@ -8,21 +8,29 @@ namespace BPMbenchmarksGenerator
 {
     class BenchmarkInstance
     {
-        public int NumberOfJobs { get; }
-        public int MachineCapacity { get; }
+        private int numberOfJobs;
+        private int machineCapacity;
 
         private readonly List<JobParameters> jobsList;
 
-        public List<JobParameters> JobsList
-        {
-            get { return this.jobsList; }
-        }
-
         public BenchmarkInstance(int numberOfJobs, int machineCapacity, List<JobParameters> jobList)
         {
-            NumberOfJobs = numberOfJobs;
-            MachineCapacity = machineCapacity;
-            jobsList = jobList;
+            this.numberOfJobs = numberOfJobs;
+            this.machineCapacity = machineCapacity;
+            this.jobsList = jobList;
+        }
+
+        public override string ToString()
+        {
+            string s = string.Format($"{numberOfJobs},{machineCapacity},\n");
+
+            foreach (JobParameters jp in jobsList)
+            {
+                s = s + string.Format("{0}\n", jp);
+            }
+
+            return s;
         }
     }
+
 }
