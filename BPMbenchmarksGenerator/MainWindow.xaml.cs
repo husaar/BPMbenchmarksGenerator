@@ -20,6 +20,8 @@ namespace BPMbenchmarksGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string _saveDirectory = "";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,16 +34,23 @@ namespace BPMbenchmarksGenerator
         {
             this.radioAllCases.IsChecked = true;
             this.txtInstancesSetsNumber = null;
-            txtStatus.Text = "Ready for benchmark generation.\n\n";
-            txtStatus.Text += "Benchmarks will be saved in:\n";
-            txtStatus.Text += BPMGeneratorMethods.GetStartingDirectory();
 
-            txtStatus.Text += "\n\nClick Path to change directory. \n\n";
+            _saveDirectory = BPMGeneratorMethods.GetStartingDirectory();
+
+            txtStatus.Text += CurrentSaveDirectoryStatus();
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
+            System.Windows.Forms.FolderBrowserDialog newDirectoryDialog = new System.Windows.Forms.FolderBrowserDialog();
 
+            System.Windows.Forms.DialogResult dialogResult = newDirectoryDialog.ShowDialog();
+
+            if (dialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                _saveDirectory = newDirectoryDialog.SelectedPath;
+                txtStatus.Text = CurrentSaveDirectoryStatus();
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -74,6 +83,24 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private string CurrentSaveDirectoryStatus()
+        {
+            string status = "";
+            if (_saveDirectory != "")
+            {
+                status = "Ready for benchmark generation.\n\n";
+                status += "Benchmarks will be saved in:\n";
+                status += _saveDirectory; //BPMGeneratorMethods.GetStartingDirectory();
+                status += "\n\nClick Path to change directory. \n\n";
+            }
+            else
+            {
+                status = "Please select direcotry were bencharks will be saved.";
+            }
+
+            return status;
         }
 
     }
