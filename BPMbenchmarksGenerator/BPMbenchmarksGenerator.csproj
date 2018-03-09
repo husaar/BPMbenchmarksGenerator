@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="BenchmarkInstance.cs" />
     <Compile Include="BPMGeneratorMethods.cs" />
+    <Compile Include="GenerationArgs.cs" />
     <Compile Include="JobParameters.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

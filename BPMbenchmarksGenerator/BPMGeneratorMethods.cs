@@ -10,6 +10,36 @@ namespace BPMbenchmarksGenerator
 {
     public class BPMGeneratorMethods
     {
+
+        private static Random r = new Random(DateTime.Now.Millisecond);
+
+        public static BenchmarkInstance GenerateOneBencharkInstance(GenerationArgs genArgs)
+        {
+            List<JobParameters> jp = new List<JobParameters>();
+
+            try
+            {
+                for (int i = 0; i < genArgs.NumberOfJobs; i++)
+                {
+                    jp.Add(GenerateJobParameters(i,genArgs));
+                }
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                throw new ArgumentOutOfRangeException("Job processing or job size values are not in order. Check Customize tab.");
+            }
+
+            BenchmarkInstance instance = new BenchmarkInstance(genArgs.NumberOfJobs, genArgs.MachineCapacity, jp);
+
+            return instance;
+        }
+
+        private static JobParameters GenerateJobParameters(int index, GenerationArgs gArgs)
+        {
+            return new JobParameters(index, r.Next(gArgs.JobProcessingTimeFrom, gArgs.JobProcessingTimeTo),
+                        r.Next(gArgs.JobSizeFrom, gArgs.JobSizeTo));
+        }
+
         public static int ParseStringToInteger(string s, int lowestPossibleNumber)
         {
             int integer = -2;

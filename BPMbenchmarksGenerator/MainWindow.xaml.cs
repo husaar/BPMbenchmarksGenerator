@@ -22,6 +22,9 @@ namespace BPMbenchmarksGenerator
     {
         private string _saveDirectory = "";
 
+        List<BenchmarkInstance> allGeneratedBenchmarks;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,11 +35,14 @@ namespace BPMbenchmarksGenerator
 
         private void MainWindowSetup()
         {
+
             radioAllCases.IsChecked = true;
 
             _saveDirectory = BPMGeneratorMethods.GetStartingDirectory();
 
             txtStatus.Text += BPMGeneratorMethods.CurrentSaveDirectoryStatus(_saveDirectory);
+
+            allGeneratedBenchmarks = new List<BenchmarkInstance>();
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -121,8 +127,86 @@ namespace BPMbenchmarksGenerator
 
         private void GenerateWithCustomRange(int SetsNumber)
         {
-            MessageBox.Show("radioCustomFull.IsChecked");
+            MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
+            
+            string stringNumberOfJobs = txtNumOfJobs.Text;
+            string stringMachineCapacity = txtMachineCapacity.Text;
+            int intNumberOfJobs = -2;
+            int intMachineCapacity = -3;
+
+            string stringJobProcessingTimeFrom = txtJobProcTimeFrom.Text;
+            string stringJobProcessingTimeTo = txtJobProcTimeTo.Text;
+            int intJobProcessingTimeFrom = -4;
+            int intJobProcessingTimeTo = -5;
+
+            string stringJobSizeFrom = txtJobSizeFrom.Text;
+            string stringJobSizeTo = txtJobSizeTo.Text;
+            int intJobSizeFrom = -6;
+            int intJobJobSizeTo = -7;
+
+            int lowestPossibleNum = 1;
+
+            try
+            {
+                intNumberOfJobs = BPMGeneratorMethods.ParseStringToInteger(stringNumberOfJobs, txbNumOfJobs, lowestPossibleNum);
+                intMachineCapacity = BPMGeneratorMethods.ParseStringToInteger(stringMachineCapacity, txbMachineCapacity, lowestPossibleNum);
+
+                intJobProcessingTimeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeFrom, txbJobProcTime, lowestPossibleNum);
+                intJobProcessingTimeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeTo, txbJobProcTime, lowestPossibleNum);
+
+                intJobSizeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeFrom, txbJobSize, lowestPossibleNum);
+                intJobJobSizeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeTo, txbJobSize, lowestPossibleNum);
+            }
+            catch (FormatException fex)
+            {
+                MessageBox.Show(fex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+             GenerationArgs generationArgs = new GenerationArgs(intNumberOfJobs, intMachineCapacity, intJobProcessingTimeFrom, intJobProcessingTimeTo,
+                 intJobSizeFrom, intJobJobSizeTo);
+
+            allGeneratedBenchmarks.Clear();
+            for (int i = 0; i < SetsNumber; i++)
+            {
+                GenerateSets(generationArgs);
+            }
+
+            printAllGeneratedBenchmarks();
         }
 
-    }
+        private void GenerateSets(GenerationArgs gArgs)
+        {
+            BenchmarkInstance benchmark = null;
+            try
+            {
+                benchmark = BPMGeneratorMethods.GenerateOneBencharkInstance(gArgs);
+            }
+            catch (ArgumentOutOfRangeException rex)
+            {
+                MessageBox.Show(rex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (benchmark != null)
+            {
+                allGeneratedBenchmarks.Add(benchmark);
+            }
+        }
+
+        private void printAllGeneratedBenchmarks()
+        {
+            foreach (BenchmarkInstance b in allGeneratedBenchmarks)
+            {
+                MessageBox.Show(b.ToString());
+            }
+        }
+
+}
 }
