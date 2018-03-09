@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace BPMbenchmarksGenerator
 {
@@ -34,6 +35,11 @@ namespace BPMbenchmarksGenerator
             }
 
             return integer;
+        }
+
+        public static string GetStartingDirectory()
+        {
+            return Directory.GetCurrentDirectory();
         }
     }
 }

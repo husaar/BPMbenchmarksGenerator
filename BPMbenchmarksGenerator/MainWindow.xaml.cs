@@ -24,8 +24,19 @@ namespace BPMbenchmarksGenerator
         {
             InitializeComponent();
 
+            MainWindowSetup();
+
+        }
+
+        private void MainWindowSetup()
+        {
             this.radioAllCases.IsChecked = true;
             this.txtInstancesSetsNumber = null;
+            txtStatus.Text = "Ready for benchmark generation.\n\n";
+            txtStatus.Text += "Benchmarks will be saved in:\n";
+            txtStatus.Text += BPMGeneratorMethods.GetStartingDirectory();
+
+            txtStatus.Text += "\n\nClick Path to change directory. \n\n";
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)

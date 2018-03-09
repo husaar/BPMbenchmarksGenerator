@@ -37,7 +37,7 @@
                     <Button x:Name="btnGenerate" Margin="10,10,10,0" Content="Generate" Click="btnGenerate_Click"/>
 
                     <TextBox x:Name="txtStatus" IsReadOnly="True" Height="141" TextWrapping="Wrap" 
-                             Text="Ready for benchmark generation." Margin="10,10,10,0"/>
+                             Margin="10,10,10,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
 
                 </StackPanel>
             </TabItem>
