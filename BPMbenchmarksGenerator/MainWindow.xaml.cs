@@ -32,8 +32,7 @@ namespace BPMbenchmarksGenerator
 
         private void MainWindowSetup()
         {
-            this.radioAllCases.IsChecked = true;
-            this.txtInstancesSetsNumber = null;
+            radioAllCases.IsChecked = true;
 
             _saveDirectory = BPMGeneratorMethods.GetStartingDirectory();
 
@@ -60,19 +59,15 @@ namespace BPMbenchmarksGenerator
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-
             string stringInstancesSetsNumber = null;
 
             int intInstancesSetsNumber = -1;
+            int lowestAcceptableNumberOfSets = 1;
             try
             {
                 stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
-                intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, 1);
+                intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, txbInstancesSetsNumber, lowestAcceptableNumberOfSets);
                 MessageBox.Show("stringInstancesSetsNumber: ", stringInstancesSetsNumber);
-            }
-            catch(ArgumentNullException nex)
-            {
-                MessageBox.Show(nex.Message);
             }
             catch (FormatException fex)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Controls;
 
 namespace BPMbenchmarksGenerator
 {
@@ -17,11 +18,6 @@ namespace BPMbenchmarksGenerator
             {
                 integer = int.Parse(s);
             }
-            catch (ArgumentNullException)
-            {
-                exceptionMessage = "Value not provided. Please specify number in correct field.";
-                throw new ArgumentNullException(exceptionMessage);
-            }
             catch (FormatException)
             {
                 exceptionMessage = "Provided number has to be integer!";
@@ -31,6 +27,29 @@ namespace BPMbenchmarksGenerator
             if (integer < lowestPossibleNumber)
             {
                 exceptionMessage = string.Format($"Integer value should be at least {lowestPossibleNumber.ToString()}.");
+                throw new Exception(exceptionMessage);
+            }
+
+            return integer;
+        }
+
+        public static int ParseStringToInteger(string s, TextBlock sourceMessage, int lowestPossibleNumber)
+        {
+            int integer = -3;
+            string exceptionMessage = null;
+            try
+            {
+                integer = int.Parse(s);
+            }
+            catch (FormatException)
+            {
+                exceptionMessage = sourceMessage.Text.Trim(':') + " has to be integer!";
+                throw new FormatException(exceptionMessage);
+            }
+
+            if (integer < lowestPossibleNumber)
+            {
+                exceptionMessage = string.Format($"{sourceMessage.Text.Trim(':')} should be at least {lowestPossibleNumber.ToString()}.");
                 throw new Exception(exceptionMessage);
             }
 

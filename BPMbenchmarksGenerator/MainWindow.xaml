@@ -29,8 +29,8 @@
                             <ColumnDefinition Width="220*"/>
                             <ColumnDefinition Width="273*"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="lblInstancesSetsNumber" Grid.Column="0" 
-                               Content="Number of instances sets to generate:" Grid.ColumnSpan="2"/>
+                        <TextBlock x:Name="txbInstancesSetsNumber" Grid.Column="0" 
+                               Text="Number of instances sets to generate:" Grid.ColumnSpan="2"/>
                         <TextBox x:Name="txtInstancesSetsNumber" TextWrapping="Wrap" Grid.Column="1"/>
                     </Grid>
 
