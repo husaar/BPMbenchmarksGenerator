@@ -59,15 +59,41 @@ namespace BPMbenchmarksGenerator
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
+            int lowestAcceptableNumberOfSets = 1;
+            int InstancesSetsNumber = GetSetsNumber(lowestAcceptableNumberOfSets);
+
+            if ((bool)radioAllCases.IsChecked)
+            {
+                if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
+                    GenerateAllCases(InstancesSetsNumber);
+            }
+            else if((bool)radioCustomSemi.IsChecked)
+            {
+                if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
+                    GenerateWithDefaultRange(InstancesSetsNumber);
+            }
+            else if((bool)radioCustomFull.IsChecked)
+            {
+                if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
+                    GenerateWithCustomRange(InstancesSetsNumber);
+            }
+            else
+            {
+                MessageBox.Show("Please select proper option in Cusotmoze tab.");
+            }
+
+        }
+
+        private int GetSetsNumber(int lowestNumberOfSets)
+        {
             string stringInstancesSetsNumber = null;
 
             int intInstancesSetsNumber = -1;
-            int lowestAcceptableNumberOfSets = 1;
+
             try
             {
                 stringInstancesSetsNumber = txtInstancesSetsNumber.Text;
-                intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, txbInstancesSetsNumber, lowestAcceptableNumberOfSets);
-                MessageBox.Show("stringInstancesSetsNumber: ", stringInstancesSetsNumber);
+                intInstancesSetsNumber = BPMGeneratorMethods.ParseStringToInteger(stringInstancesSetsNumber, txbInstancesSetsNumber, lowestNumberOfSets);
             }
             catch (FormatException fex)
             {
@@ -78,6 +104,24 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
+            return intInstancesSetsNumber;
+        }
+
+        private void GenerateAllCases(int SetsNumber)
+        {
+
+                MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
+
+        }
+
+        private void GenerateWithDefaultRange(int SetsNumber)
+        {
+            MessageBox.Show("radioCustomSemi.IsChecked");
+        }
+
+        private void GenerateWithCustomRange(int SetsNumber)
+        {
+            MessageBox.Show("radioCustomFull.IsChecked");
         }
 
     }
