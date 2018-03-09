@@ -37,7 +37,7 @@ namespace BPMbenchmarksGenerator
 
             _saveDirectory = BPMGeneratorMethods.GetStartingDirectory();
 
-            txtStatus.Text += CurrentSaveDirectoryStatus();
+            txtStatus.Text += BPMGeneratorMethods.CurrentSaveDirectoryStatus(_saveDirectory);
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace BPMbenchmarksGenerator
             if (dialogResult == System.Windows.Forms.DialogResult.OK)
             {
                 _saveDirectory = newDirectoryDialog.SelectedPath;
-                txtStatus.Text = CurrentSaveDirectoryStatus();
+                txtStatus.Text = BPMGeneratorMethods.CurrentSaveDirectoryStatus(_saveDirectory);
             }
         }
 
@@ -83,24 +83,6 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
-        }
-
-        private string CurrentSaveDirectoryStatus()
-        {
-            string status = "";
-            if (_saveDirectory != "")
-            {
-                status = "Ready for benchmark generation.\n\n";
-                status += "Benchmarks will be saved in:\n";
-                status += _saveDirectory; //BPMGeneratorMethods.GetStartingDirectory();
-                status += "\n\nClick Path to change directory. \n\n";
-            }
-            else
-            {
-                status = "Please select direcotry were bencharks will be saved.";
-            }
-
-            return status;
         }
 
     }

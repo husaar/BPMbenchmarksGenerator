@@ -42,5 +42,23 @@ namespace BPMbenchmarksGenerator
             return Directory.GetCurrentDirectory();
         }
 
+        public static string CurrentSaveDirectoryStatus(string directory)
+        {
+            string status = "";
+            if (directory != "")
+            {
+                status = "Ready for benchmark generation.\n\n";
+                status += "Benchmarks will be saved in:\n";
+                status += directory; //BPMGeneratorMethods.GetStartingDirectory();
+                status += "\n\nClick Path to change directory. \n\n";
+            }
+            else
+            {
+                status = "Please select direcotry were bencharks will be saved.";
+            }
+
+            return status;
+        }
+
     }
 }
