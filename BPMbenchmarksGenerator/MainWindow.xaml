@@ -62,7 +62,7 @@
                                     <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Number of Jobs: " Grid.Column="0" Grid.Row="0" Margin="0,0,15,0"/>
-                                <ComboBox Grid.Column="1" Grid.Row="0" Margin="5,0,78,5" SelectedIndex="0"
+                                <ComboBox x:Name="combNumOfJobs" Grid.Column="1" Grid.Row="0" Margin="5,0,78,5" SelectedIndex="0"
                                           IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
                                     <ComboBoxItem Content="10"/>
                                     <ComboBoxItem Content="20"/>
@@ -70,13 +70,13 @@
                                     <ComboBoxItem Content="100"/>
                                 </ComboBox>
                                 <TextBlock Text="Job processing time: " Grid.Column="0" Grid.Row="1" Margin="0,0,15,0" />
-                                <ComboBox Grid.Column="1" Grid.Row="1" Margin="5,0,78,5"  SelectedIndex="0"
+                                <ComboBox x:Name="combJobProcTime" Grid.Column="1" Grid.Row="1" Margin="5,0,78,5"  SelectedIndex="0"
                                           IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
                                     <ComboBoxItem Content="[1,10]"/>
                                     <ComboBoxItem Content="[1,20]"/>
                                 </ComboBox>
                                 <TextBlock Text="Job size: " Grid.Column="0" Grid.Row="2" Margin="0,0,15,0"/>
-                                <ComboBox Grid.Column="1" Grid.Row="2" Margin="5,0,78,5" SelectedIndex="0"
+                                <ComboBox x:Name="combJobSize" Grid.Column="1" Grid.Row="2" Margin="5,0,78,5" SelectedIndex="0"
                                           IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
                                     <ComboBoxItem Content="[1,10]"/>
                                     <ComboBoxItem Content="[2,4]"/>

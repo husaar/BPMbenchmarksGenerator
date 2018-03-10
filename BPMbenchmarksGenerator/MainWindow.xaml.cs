@@ -21,6 +21,7 @@ namespace BPMbenchmarksGenerator
     public partial class MainWindow : Window
     {
         private string _saveDirectory = "";
+        private GenerationArgs generationArgs;
 
         List<BenchmarkInstance> allGeneratedBenchmarks;
 
@@ -35,6 +36,8 @@ namespace BPMbenchmarksGenerator
 
         private void MainWindowSetup()
         {
+
+            generationArgs = new GenerationArgs();
 
             radioAllCases.IsChecked = true;
 
@@ -67,6 +70,8 @@ namespace BPMbenchmarksGenerator
         {
             int lowestAcceptableNumberOfSets = 1;
             int InstancesSetsNumber = GetSetsNumber(lowestAcceptableNumberOfSets);
+
+            generationArgs.Reset();
 
             if ((bool)radioAllCases.IsChecked)
             {
@@ -123,6 +128,26 @@ namespace BPMbenchmarksGenerator
         private void GenerateWithDefaultRange(int SetsNumber)
         {
             MessageBox.Show("radioCustomSemi.IsChecked");
+
+            int intNumberOfJobs = -2;
+            int intMachineCapacity = 10;
+
+            int intJobProcessingTimeFrom = -4;
+            int intJobProcessingTimeTo = -5;
+
+            int intJobSizeFrom = -6;
+            int intJobJobSizeTo = -7;
+
+            int lowestPossibleNum = 1;
+
+
+
+        }
+
+        private int GetNumberOfJobsFromDefaultRange()
+        {
+
+            return 0;
         }
 
         private void GenerateWithCustomRange(int SetsNumber)
@@ -131,31 +156,25 @@ namespace BPMbenchmarksGenerator
             
             string stringNumberOfJobs = txtNumOfJobs.Text;
             string stringMachineCapacity = txtMachineCapacity.Text;
-            int intNumberOfJobs = -2;
-            int intMachineCapacity = -3;
 
             string stringJobProcessingTimeFrom = txtJobProcTimeFrom.Text;
             string stringJobProcessingTimeTo = txtJobProcTimeTo.Text;
-            int intJobProcessingTimeFrom = -4;
-            int intJobProcessingTimeTo = -5;
 
             string stringJobSizeFrom = txtJobSizeFrom.Text;
             string stringJobSizeTo = txtJobSizeTo.Text;
-            int intJobSizeFrom = -6;
-            int intJobJobSizeTo = -7;
 
             int lowestPossibleNum = 1;
 
             try
             {
-                intNumberOfJobs = BPMGeneratorMethods.ParseStringToInteger(stringNumberOfJobs, txbNumOfJobs, lowestPossibleNum);
-                intMachineCapacity = BPMGeneratorMethods.ParseStringToInteger(stringMachineCapacity, txbMachineCapacity, lowestPossibleNum);
+                generationArgs.NumberOfJobs = BPMGeneratorMethods.ParseStringToInteger(stringNumberOfJobs, txbNumOfJobs, lowestPossibleNum);
+                generationArgs.MachineCapacity = BPMGeneratorMethods.ParseStringToInteger(stringMachineCapacity, txbMachineCapacity, lowestPossibleNum);
 
-                intJobProcessingTimeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeFrom, txbJobProcTime, lowestPossibleNum);
-                intJobProcessingTimeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeTo, txbJobProcTime, lowestPossibleNum);
+                generationArgs.JobProcessingTimeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeFrom, txbJobProcTime, lowestPossibleNum);
+                generationArgs.JobProcessingTimeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeTo, txbJobProcTime, lowestPossibleNum);
 
-                intJobSizeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeFrom, txbJobSize, lowestPossibleNum);
-                intJobJobSizeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeTo, txbJobSize, lowestPossibleNum);
+                generationArgs.JobSizeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeFrom, txbJobSize, lowestPossibleNum);
+                generationArgs.JobSizeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeTo, txbJobSize, lowestPossibleNum);
             }
             catch (FormatException fex)
             {
@@ -166,19 +185,20 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
-             GenerationArgs generationArgs = new GenerationArgs(intNumberOfJobs, intMachineCapacity, intJobProcessingTimeFrom, intJobProcessingTimeTo,
-                 intJobSizeFrom, intJobJobSizeTo);
+           string controlMessage = string.Format($"NumberOfJobs: {generationArgs.NumberOfJobs} MachineCapacity: {generationArgs.MachineCapacity} JobProcessingTimeFrom: {generationArgs.JobProcessingTimeFrom} JobProcessingTimeTo: {generationArgs.JobProcessingTimeTo} JobSizeFrom: {generationArgs.JobSizeFrom} JobSizeTo: {generationArgs.JobSizeTo}");
+
+            MessageBox.Show(controlMessage);
 
             allGeneratedBenchmarks.Clear();
             for (int i = 0; i < SetsNumber; i++)
             {
-                GenerateSets(generationArgs);
+                GenerateAndAddBencharkInstanceToList(generationArgs);
             }
 
-            printAllGeneratedBenchmarks();
+            printAllGeneratedBenchmarksToMessageBox();
         }
 
-        private void GenerateSets(GenerationArgs gArgs)
+        private void GenerateAndAddBencharkInstanceToList(GenerationArgs gArgs)
         {
             BenchmarkInstance benchmark = null;
             try
@@ -200,7 +220,7 @@ namespace BPMbenchmarksGenerator
             }
         }
 
-        private void printAllGeneratedBenchmarks()
+        private void printAllGeneratedBenchmarksToMessageBox()
         {
             foreach (BenchmarkInstance b in allGeneratedBenchmarks)
             {

@@ -8,12 +8,15 @@ namespace BPMbenchmarksGenerator
 {
     public class GenerationArgs
     {
-        public int NumberOfJobs { get; }
-        public int MachineCapacity { get; }
-        public int JobProcessingTimeFrom { get; }
-        public int JobProcessingTimeTo { get; }
-        public int JobSizeFrom { get; }
-        public int JobSizeTo { get; }
+        public int NumberOfJobs { get; set; } = -1;
+        public int MachineCapacity { get; set; } = -1;
+        public int JobProcessingTimeFrom { get; set; } = -1;
+        public int JobProcessingTimeTo { get; set; } = -1;
+        public int JobSizeFrom { get; set; } = -1;
+        public int JobSizeTo { get; set; } = -1;
+
+
+        public GenerationArgs() { }
 
         public GenerationArgs(int numberOfJobs, int machineCapacity, int jobProcessingTimeFrom, 
             int jobProcessingTimeTo, int jobSizeFrom, int jobSizeTo)
@@ -25,5 +28,16 @@ namespace BPMbenchmarksGenerator
             JobSizeFrom = jobSizeFrom;
             JobSizeTo = jobSizeTo;
         }
+
+        public void Reset()
+        {
+
+        NumberOfJobs = -1;
+        MachineCapacity = -1;
+        JobProcessingTimeFrom = -1;
+        JobProcessingTimeTo = -1;
+        JobSizeFrom = -1;
+        JobSizeTo = -1;
+    }
     }
 }
