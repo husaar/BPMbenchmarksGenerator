@@ -86,6 +86,49 @@ namespace BPMbenchmarksGenerator
             return integer;
         }
 
+        public static void SetNumberOfJobsArgs(string numberOfJobs, GenerationArgs genArgs)
+        {
+            genArgs.NumberOfJobs = int.Parse(numberOfJobs);
+        }
+
+        public static void SetJobProcTimeArgs(string jobProcTimeRange, GenerationArgs genArgs)
+        {
+            if (jobProcTimeRange == "[1,10]")
+            {
+                genArgs.JobProcessingTimeFrom = 1;
+                genArgs.JobProcessingTimeTo = 10;
+            }
+            else if (jobProcTimeRange == "[1,20]")
+            {
+                genArgs.JobProcessingTimeFrom = 1;
+                genArgs.JobProcessingTimeTo = 20;
+            }
+        }
+
+        public static void SetJobSizeArgs(string jobSizeRange, GenerationArgs genArgs)
+        {
+            if (jobSizeRange == "[1,10]")
+            {
+                genArgs.JobSizeFrom = 1;
+                genArgs.JobSizeTo = 10;
+            }
+            else if (jobSizeRange == "[2,4]")
+            {
+                genArgs.JobSizeFrom = 2;
+                genArgs.JobSizeTo = 4;
+            }
+            else if (jobSizeRange == "[4,8]")
+            {
+                genArgs.JobSizeFrom = 4;
+                genArgs.JobSizeTo = 8;
+            }
+        }
+
+        public static void SetMachineCapacityArgs(string machineCapacity, GenerationArgs genArgs)
+        {
+            genArgs.MachineCapacity = int.Parse(machineCapacity);
+        }
+
         public static string GetStartingDirectory()
         {
             return Directory.GetCurrentDirectory();
@@ -105,6 +148,32 @@ namespace BPMbenchmarksGenerator
             {
                 status = "Please select direcotry were bencharks will be saved.";
             }
+
+            return status;
+        }
+
+        public static string UpdateStatusWithGenArgsAndSaveDirectory(GenerationArgs genArgs, string directory)
+        {
+            string status = "";
+
+            status = "Benchmarks parameters: \n";
+            status += string.Format($"Jobs: {genArgs.NumberOfJobs} \n Machine Capacity: {genArgs.MachineCapacity}\n");
+            status += string.Format($"Proc. time: [ {genArgs.JobProcessingTimeFrom} , {genArgs.JobProcessingTimeTo} ]\n");
+            status += string.Format($"Sizes: [ {genArgs.JobSizeFrom} , {genArgs.JobSizeTo} ]\n\n");
+
+            status += "Benchmark instnaces will be saved in: \n";
+            status += directory + "\n\n";
+
+            return status;
+        }
+
+        public static string UpdateStatusWithGenerationArgs(GenerationArgs genArgs, TextBox txStatus)
+        {
+            string status = txStatus.Text;
+
+            status += string.Format($"Jobs: {genArgs.NumberOfJobs} \n Machine Capacity: {genArgs.MachineCapacity}\n");
+            status += string.Format($"Proc. time: [ {genArgs.JobProcessingTimeFrom} , {genArgs.JobProcessingTimeTo} ]\n");
+            status += string.Format($"Sizes: [ {genArgs.JobSizeFrom} , {genArgs.JobSizeTo} ]\n\n");
 
             return status;
         }

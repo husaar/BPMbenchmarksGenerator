@@ -28,24 +28,21 @@ namespace BPMbenchmarksGenerator
 
         public MainWindow()
         {
-            InitializeComponent();
+            allGeneratedBenchmarks = new List<BenchmarkInstance>();
+            generationArgs = new GenerationArgs();
 
+            InitializeComponent();
             MainWindowSetup();
 
         }
 
         private void MainWindowSetup()
         {
-
-            generationArgs = new GenerationArgs();
-
             radioAllCases.IsChecked = true;
 
             _saveDirectory = BPMGeneratorMethods.GetStartingDirectory();
 
             txtStatus.Text += BPMGeneratorMethods.CurrentSaveDirectoryStatus(_saveDirectory);
-
-            allGeneratedBenchmarks = new List<BenchmarkInstance>();
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -71,19 +68,17 @@ namespace BPMbenchmarksGenerator
             int lowestAcceptableNumberOfSets = 1;
             int InstancesSetsNumber = GetSetsNumber(lowestAcceptableNumberOfSets);
 
-            generationArgs.Reset();
-
-            if ((bool)radioAllCases.IsChecked)
+            if (radioAllCases.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
                     GenerateAllCases(InstancesSetsNumber);
             }
-            else if((bool)radioCustomSemi.IsChecked)
+            else if(radioCustomSemi.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
                     GenerateWithDefaultRange(InstancesSetsNumber);
             }
-            else if((bool)radioCustomFull.IsChecked)
+            else if(radioCustomFull.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
                     GenerateWithCustomRange(InstancesSetsNumber);
@@ -123,31 +118,63 @@ namespace BPMbenchmarksGenerator
 
                 MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
 
+            string statusCleanUp = string.Format($"Save directory:\n {_saveDirectory}\n\n Benchmarks parameters: \n\n");
+            txtStatus.Text = statusCleanUp;
+
+
+
+            SetGenerationAllCases("10", "[1,10]", "[1,10]","10");
+            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+
+            SetGenerationAllCases("10", "[1,10]", "[2,4]", "10");
+            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+
+            SetGenerationAllCases("10", "[1,10]", "[4,8]", "10");
+            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+
         }
+
+
+        public void SetGenerationAllCases(string noJobs, string jobProcTimeRange, string jobSizeRange, string machCapacity)
+        {
+            BPMGeneratorMethods.SetNumberOfJobsArgs(noJobs, generationArgs);
+            BPMGeneratorMethods.SetJobProcTimeArgs(jobProcTimeRange, generationArgs);
+            BPMGeneratorMethods.SetJobSizeArgs(jobSizeRange, generationArgs);
+            BPMGeneratorMethods.SetMachineCapacityArgs(machCapacity, generationArgs);
+        }
+
 
         private void GenerateWithDefaultRange(int SetsNumber)
         {
             MessageBox.Show("radioCustomSemi.IsChecked");
 
-            int intNumberOfJobs = -2;
-            int intMachineCapacity = 10;
 
-            int intJobProcessingTimeFrom = -4;
-            int intJobProcessingTimeTo = -5;
-
-            int intJobSizeFrom = -6;
-            int intJobJobSizeTo = -7;
-
-            int lowestPossibleNum = 1;
+            SetGenerationArgumentsFromDefaultRange();
 
 
+            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
 
+            allGeneratedBenchmarks.Clear();
+            for (int i = 0; i < SetsNumber; i++)
+            {
+                GenerateAndAddBencharkInstanceToList(generationArgs);
+            }
+
+            printAllGeneratedBenchmarksToMessageBox();
         }
 
-        private int GetNumberOfJobsFromDefaultRange()
+        private void SetGenerationArgumentsFromDefaultRange()
         {
+            string stringNumberOfJobs = (this.combNumOfJobs.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string stringJobProcTimeRange = (this.combJobProcTime.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string stringJobSizeRange = (this.combJobSize.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string stringMachineCapacity = "10";
 
-            return 0;
+            BPMGeneratorMethods.SetNumberOfJobsArgs(stringNumberOfJobs, generationArgs);
+            BPMGeneratorMethods.SetJobProcTimeArgs(stringJobProcTimeRange, generationArgs);
+            BPMGeneratorMethods.SetJobSizeArgs(stringJobSizeRange, generationArgs);
+            BPMGeneratorMethods.SetMachineCapacityArgs(stringMachineCapacity, generationArgs);
+
         }
 
         private void GenerateWithCustomRange(int SetsNumber)
@@ -185,9 +212,7 @@ namespace BPMbenchmarksGenerator
                 MessageBox.Show(ex.Message);
             }
 
-           string controlMessage = string.Format($"NumberOfJobs: {generationArgs.NumberOfJobs} MachineCapacity: {generationArgs.MachineCapacity} JobProcessingTimeFrom: {generationArgs.JobProcessingTimeFrom} JobProcessingTimeTo: {generationArgs.JobProcessingTimeTo} JobSizeFrom: {generationArgs.JobSizeFrom} JobSizeTo: {generationArgs.JobSizeTo}");
-
-            MessageBox.Show(controlMessage);
+            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
 
             allGeneratedBenchmarks.Clear();
             for (int i = 0; i < SetsNumber; i++)
@@ -228,5 +253,5 @@ namespace BPMbenchmarksGenerator
             }
         }
 
-}
+    }
 }
