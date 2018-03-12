@@ -123,19 +123,19 @@ namespace BPMbenchmarksGenerator
 
 
 
-            SetGenerationAllCases("10", "[1,10]", "[1,10]","10");
+            SetGenerationArgumentsAllCases("10", "[1,10]", "[1,10]","10");
             txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
 
-            SetGenerationAllCases("10", "[1,10]", "[2,4]", "10");
+            SetGenerationArgumentsAllCases("10", "[1,10]", "[2,4]", "10");
             txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
 
-            SetGenerationAllCases("10", "[1,10]", "[4,8]", "10");
+            SetGenerationArgumentsAllCases("10", "[1,10]", "[4,8]", "10");
             txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
 
         }
 
 
-        public void SetGenerationAllCases(string noJobs, string jobProcTimeRange, string jobSizeRange, string machCapacity)
+        public void SetGenerationArgumentsAllCases(string noJobs, string jobProcTimeRange, string jobSizeRange, string machCapacity)
         {
             BPMGeneratorMethods.SetNumberOfJobsArgs(noJobs, generationArgs);
             BPMGeneratorMethods.SetJobProcTimeArgs(jobProcTimeRange, generationArgs);

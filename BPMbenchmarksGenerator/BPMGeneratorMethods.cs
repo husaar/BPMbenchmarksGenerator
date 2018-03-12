@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BPMbenchmarksGenerator
@@ -93,35 +94,65 @@ namespace BPMbenchmarksGenerator
 
         public static void SetJobProcTimeArgs(string jobProcTimeRange, GenerationArgs genArgs)
         {
-            if (jobProcTimeRange == "[1,10]")
+            int[] jobProcArgs = DecomposeSquareBracketStringToInts(jobProcTimeRange);
+
+            try
             {
-                genArgs.JobProcessingTimeFrom = 1;
-                genArgs.JobProcessingTimeTo = 10;
+                genArgs.JobProcessingTimeFrom = jobProcArgs[0];
+                genArgs.JobProcessingTimeTo = jobProcArgs[1];
             }
-            else if (jobProcTimeRange == "[1,20]")
+            catch (System.NullReferenceException nrex)
             {
-                genArgs.JobProcessingTimeFrom = 1;
-                genArgs.JobProcessingTimeTo = 20;
+                MessageBox.Show($"Message: {nrex.Message} \n Source: {nrex.Source}");
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Message: {ex.Message} \n Source: {ex.Source}");
             }
         }
 
         public static void SetJobSizeArgs(string jobSizeRange, GenerationArgs genArgs)
         {
-            if (jobSizeRange == "[1,10]")
+            int[]  jobSizeArgs = DecomposeSquareBracketStringToInts(jobSizeRange);
+
+            try
             {
-                genArgs.JobSizeFrom = 1;
-                genArgs.JobSizeTo = 10;
+                genArgs.JobSizeFrom = jobSizeArgs[0];
+                genArgs.JobSizeTo = jobSizeArgs[1];
             }
-            else if (jobSizeRange == "[2,4]")
+            catch (System.NullReferenceException nrex)
             {
-                genArgs.JobSizeFrom = 2;
-                genArgs.JobSizeTo = 4;
+                MessageBox.Show($"Message: {nrex.Message} \n Source: {nrex.Source}");
             }
-            else if (jobSizeRange == "[4,8]")
+            catch (System.Exception ex)
             {
-                genArgs.JobSizeFrom = 4;
-                genArgs.JobSizeTo = 8;
+                MessageBox.Show($"Message: {ex.Message} \n Source: {ex.Source}");
             }
+        }
+
+        public static int[] DecomposeSquareBracketStringToInts(string squareBracket)
+        //correct squareBracket format: [arg1,arg2]
+        {
+            string[] substrings = squareBracket.Split(new char[] { '[', ',', ']' });
+
+            try
+            {
+                //subs array first and last elements are "", because delimiters '[' and ']' were placed at the beginning and end of the string str
+                int[] decomposedArgs = new int[] { int.Parse(substrings[1]), int.Parse(substrings[2]) };
+                return decomposedArgs;
+            }
+            catch(FormatException fex)
+            {
+                MessageBox.Show($"Message: {fex.Message} \n Source: {fex.Source}");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Message: {ex.Message} \n Source: {ex.Source}");
+            }
+
+
+            return null;
+           
         }
 
         public static void SetMachineCapacityArgs(string machineCapacity, GenerationArgs genArgs)
