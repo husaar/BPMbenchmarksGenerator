@@ -121,16 +121,37 @@ namespace BPMbenchmarksGenerator
             string statusCleanUp = string.Format($"Save directory:\n {_saveDirectory}\n\n Benchmarks parameters: \n\n");
             txtStatus.Text = statusCleanUp;
 
+            string[] jobsNumberFactorsLevels = new string[4] { "10", "20", "50", "100" };
+            string[] procTimeFactorsLevels = new string[2] { "[1,10]", "[1,20]" };
+            string[] jobsSizesFactorsLevels = new string[3] { "[1,10]", "[2,4]", "[4,8]" };
+            string[] machineCapacityFactorsLevels = new string[1] { "10" };
 
 
-            SetGenerationArgumentsAllCases("10", "[1,10]", "[1,10]","10");
-            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+            allGeneratedBenchmarks.Clear();
+            for (int jn=0; jn< jobsNumberFactorsLevels.Length; jn++)
+            {
+                for (int pt = 0; pt < procTimeFactorsLevels.Length; pt++)
+                {
+                    for(int js=0; js< jobsSizesFactorsLevels.Length; js++)
+                    {
+                        for (int mc = 0; mc < machineCapacityFactorsLevels.Length; mc++)
+                        {
+                            SetGenerationArgumentsAllCases(jobsNumberFactorsLevels[jn], 
+                                procTimeFactorsLevels[pt], jobsSizesFactorsLevels[js], machineCapacityFactorsLevels[mc]);
 
-            SetGenerationArgumentsAllCases("10", "[1,10]", "[2,4]", "10");
-            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+                            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
 
-            SetGenerationArgumentsAllCases("10", "[1,10]", "[4,8]", "10");
-            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+                            for (int set = 0; set < SetsNumber; set++)
+                            {
+                                GenerateAndAddBencharkInstanceToList(generationArgs);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
 
         }
 
@@ -160,7 +181,10 @@ namespace BPMbenchmarksGenerator
                 GenerateAndAddBencharkInstanceToList(generationArgs);
             }
 
-            printAllGeneratedBenchmarksToMessageBox();
+            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+
+            string fName = "a.txt";
+            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, fName, allGeneratedBenchmarks);
         }
 
         private void SetGenerationArgumentsFromDefaultRange()
@@ -220,7 +244,7 @@ namespace BPMbenchmarksGenerator
                 GenerateAndAddBencharkInstanceToList(generationArgs);
             }
 
-            printAllGeneratedBenchmarksToMessageBox();
+            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
         }
 
         private void GenerateAndAddBencharkInstanceToList(GenerationArgs gArgs)
@@ -242,14 +266,6 @@ namespace BPMbenchmarksGenerator
             if (benchmark != null)
             {
                 allGeneratedBenchmarks.Add(benchmark);
-            }
-        }
-
-        private void printAllGeneratedBenchmarksToMessageBox()
-        {
-            foreach (BenchmarkInstance b in allGeneratedBenchmarks)
-            {
-                MessageBox.Show(b.ToString());
             }
         }
 

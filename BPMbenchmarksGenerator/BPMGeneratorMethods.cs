@@ -209,5 +209,20 @@ namespace BPMbenchmarksGenerator
             return status;
         }
 
+        public static void printAllGeneratedBenchmarksToFile(string saveDirectory, string fileName, List<BenchmarkInstance> allBenchmarks)
+        {
+            string saveDestination = saveDirectory + "\\" + fileName;
+
+            MessageBox.Show(saveDestination);
+        }
+
+        public static void PrintAllGeneratedBenchmarksToMessageBox(List<BenchmarkInstance> allBenchmarks)
+        {
+            foreach (BenchmarkInstance b in allBenchmarks)
+            {
+                MessageBox.Show(b.ToString());
+            }
+        }
+
     }
 }
