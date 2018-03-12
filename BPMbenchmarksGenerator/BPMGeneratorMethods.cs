@@ -30,7 +30,11 @@ namespace BPMbenchmarksGenerator
                 throw new ArgumentOutOfRangeException("Job processing or job size values are not in order. Check Customize tab.");
             }
 
-            BenchmarkInstance instance = new BenchmarkInstance(genArgs.NumberOfJobs, genArgs.MachineCapacity, jp);
+            string instanceName = "J" + genArgs.NumberOfJobs.ToString() +
+                "p" + genArgs.JobProcessingTimeFrom  + genArgs.JobProcessingTimeTo +
+                "s" + genArgs.JobSizeFrom + genArgs.JobSizeTo;
+
+            BenchmarkInstance instance = new BenchmarkInstance(genArgs.NumberOfJobs, genArgs.MachineCapacity, instanceName, jp);
 
             return instance;
         }
@@ -209,18 +213,40 @@ namespace BPMbenchmarksGenerator
             return status;
         }
 
-        public static void printAllGeneratedBenchmarksToFile(string saveDirectory, string fileName, List<BenchmarkInstance> allBenchmarks)
+        public static void printAllGeneratedBenchmarksToFile(string saveDirectory, List<BenchmarkInstance> allBenchmarks)
         {
-            string saveDestination = saveDirectory + "\\" + fileName;
+            string saveDestination = null;
 
-            MessageBox.Show(saveDestination);
+            //MessageBox.Show(saveDestination);
+
+           foreach(BenchmarkInstance b in allBenchmarks)
+            {
+                saveDestination = saveDirectory + "\\" + b.Name + ".txt";
+
+                try
+                {
+                    File.WriteAllText(saveDestination, b.ToString());
+                }
+                catch(ArgumentNullException anex)
+                {
+                    MessageBox.Show(anex.Message);
+                }
+                catch(ArgumentException aex)
+                {
+                    MessageBox.Show(aex.Message);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         public static void PrintAllGeneratedBenchmarksToMessageBox(List<BenchmarkInstance> allBenchmarks)
         {
             foreach (BenchmarkInstance b in allBenchmarks)
             {
-                MessageBox.Show(b.ToString());
+                MessageBox.Show(b.ToString(), b.Name);
             }
         }
 

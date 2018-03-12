@@ -151,7 +151,8 @@ namespace BPMbenchmarksGenerator
             }
 
 
-            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+           // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
 
         }
 
@@ -181,10 +182,9 @@ namespace BPMbenchmarksGenerator
                 GenerateAndAddBencharkInstanceToList(generationArgs);
             }
 
-            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+          //  BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
 
-            string fName = "a.txt";
-            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, fName, allGeneratedBenchmarks);
+            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
         }
 
         private void SetGenerationArgumentsFromDefaultRange()
@@ -244,7 +244,8 @@ namespace BPMbenchmarksGenerator
                 GenerateAndAddBencharkInstanceToList(generationArgs);
             }
 
-            BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+           // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
         }
 
         private void GenerateAndAddBencharkInstanceToList(GenerationArgs gArgs)

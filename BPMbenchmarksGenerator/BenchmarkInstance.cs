@@ -11,6 +11,7 @@ namespace BPMbenchmarksGenerator
     {
         public int NumberOfJobs { get; }
         public int MachineCapacity { get; }
+        public string Name { get; }
 
         private readonly List<JobParameters> jobsList;
         private ReadOnlyCollection<JobParameters> readonlyJobList;
@@ -28,10 +29,11 @@ namespace BPMbenchmarksGenerator
             }
         }
 
-        public BenchmarkInstance(int numberOfJobs, int machineCapacity, List<JobParameters> jobList)
+        public BenchmarkInstance(int numberOfJobs, int machineCapacity, string name, List<JobParameters> jobList)
         {
             NumberOfJobs = numberOfJobs;
             MachineCapacity = machineCapacity;
+            Name = name;
             jobsList = jobList;            
         }
 
