@@ -216,12 +216,11 @@ namespace BPMbenchmarksGenerator
         public static void printAllGeneratedBenchmarksToFile(string saveDirectory, List<BenchmarkInstance> allBenchmarks)
         {
             string saveDestination = null;
-
-            //MessageBox.Show(saveDestination);
+            int benchmarkNumber = 0;
 
            foreach(BenchmarkInstance b in allBenchmarks)
             {
-                saveDestination = saveDirectory + "\\" + b.Name + ".txt";
+                saveDestination = saveDirectory + "\\" + benchmarkNumber + b.Name + ".txt";
 
                 try
                 {
@@ -239,6 +238,8 @@ namespace BPMbenchmarksGenerator
                 {
                     MessageBox.Show(ex.Message);
                 }
+
+                benchmarkNumber++;
             }
         }
 
