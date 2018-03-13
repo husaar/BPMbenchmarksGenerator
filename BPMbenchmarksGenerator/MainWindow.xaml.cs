@@ -63,7 +63,7 @@ namespace BPMbenchmarksGenerator
             this.Close();
         }
 
-        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        private async void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             int lowestAcceptableNumberOfSets = 1;
             int InstancesSetsNumber = GetSetsNumber(lowestAcceptableNumberOfSets);
@@ -71,7 +71,7 @@ namespace BPMbenchmarksGenerator
             if (radioAllCases.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
-                    GenerateAllCases(InstancesSetsNumber);
+                    await GenerateAllCasesAsync(InstancesSetsNumber);
             }
             else if(radioCustomSemi.IsChecked == true)
             {
@@ -113,47 +113,53 @@ namespace BPMbenchmarksGenerator
             return intInstancesSetsNumber;
         }
 
-        private void GenerateAllCases(int SetsNumber)
+        private async Task GenerateAllCasesAsync(int SetsNumber)
         {
 
+            await Task.Run(() =>
+            {
                 MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
 
-            string statusCleanUp = string.Format($"Save directory:\n {_saveDirectory}\n\n Benchmarks parameters: \n\n");
-            txtStatus.Text = statusCleanUp;
+                string statusCleanUp = string.Format($"Save directory:\n {_saveDirectory}\n\n Benchmarks parameters: \n\n");
+                this.Dispatcher.Invoke((Action)delegate { txtStatus.Text = statusCleanUp; });
 
-            string[] jobsNumberFactorsLevels = new string[4] { "10", "20", "50", "100" };
-            string[] procTimeFactorsLevels = new string[2] { "[1,10]", "[1,20]" };
-            string[] jobsSizesFactorsLevels = new string[3] { "[1,10]", "[2,4]", "[4,8]" };
-            string[] machineCapacityFactorsLevels = new string[1] { "10" };
+                string[] jobsNumberFactorsLevels = new string[4] { "10", "20", "50", "100" };
+                string[] procTimeFactorsLevels = new string[2] { "[1,10]", "[1,20]" };
+                string[] jobsSizesFactorsLevels = new string[3] { "[1,10]", "[2,4]", "[4,8]" };
+                string[] machineCapacityFactorsLevels = new string[1] { "10" };
 
 
-            allGeneratedBenchmarks.Clear();
-            for (int jn=0; jn< jobsNumberFactorsLevels.Length; jn++)
-            {
-                for (int pt = 0; pt < procTimeFactorsLevels.Length; pt++)
+                allGeneratedBenchmarks.Clear();
+                for (int jn = 0; jn < jobsNumberFactorsLevels.Length; jn++)
                 {
-                    for(int js=0; js< jobsSizesFactorsLevels.Length; js++)
+                    for (int pt = 0; pt < procTimeFactorsLevels.Length; pt++)
                     {
-                        for (int mc = 0; mc < machineCapacityFactorsLevels.Length; mc++)
+                        for (int js = 0; js < jobsSizesFactorsLevels.Length; js++)
                         {
-                            SetGenerationArgumentsAllCases(jobsNumberFactorsLevels[jn], 
-                                procTimeFactorsLevels[pt], jobsSizesFactorsLevels[js], machineCapacityFactorsLevels[mc]);
-
-                            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
-
-                            for (int set = 0; set < SetsNumber; set++)
+                            for (int mc = 0; mc < machineCapacityFactorsLevels.Length; mc++)
                             {
-                                GenerateAndAddBencharkInstanceToList(generationArgs);
+                                SetGenerationArgumentsAllCases(jobsNumberFactorsLevels[jn],
+                                    procTimeFactorsLevels[pt], jobsSizesFactorsLevels[js], machineCapacityFactorsLevels[mc]);
+
+                                this.Dispatcher.Invoke((Action)delegate
+                                {
+                                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenerationArgs(generationArgs, txtStatus);
+                                });
+
+                                for (int set = 0; set < SetsNumber; set++)
+                                {
+                                    GenerateAndAddBencharkInstanceToList(generationArgs);
+                                }
                             }
                         }
                     }
                 }
-            }
 
 
-           // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
-            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
+                // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+                BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
 
+            }); //await Task.Run(() =>
         }
 
 
