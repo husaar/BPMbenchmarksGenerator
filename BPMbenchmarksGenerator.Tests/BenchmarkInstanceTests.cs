@@ -21,7 +21,7 @@ namespace BPMbenchmarksGenerator.Tests
 
             list.Add(jobParametersMock);
 
-            var benchmark = new BenchmarkInstance(5, 10, list);
+            var benchmark = new BenchmarkInstance(5, 10, "Test" , list);
 
             benchmark.NumberOfJobs.Should().Be(5);
         }
@@ -34,7 +34,7 @@ namespace BPMbenchmarksGenerator.Tests
 
             list.Add(jobParametersMock);
 
-            var benchmark = new BenchmarkInstance(5, 10, list);
+            var benchmark = new BenchmarkInstance(5, 10, "Test" ,list);
 
             benchmark.MachineCapacity.Should().Be(10);
         }
@@ -48,7 +48,7 @@ namespace BPMbenchmarksGenerator.Tests
             list.Add(jobParametersMock);
             list.Add(jobParametersMock);
 
-            var benchmark = new BenchmarkInstance(5, 10, list);
+            var benchmark = new BenchmarkInstance(5, 10, "Test" ,list);
 
             benchmark.JobsList.Should().HaveCount(2);
         }
