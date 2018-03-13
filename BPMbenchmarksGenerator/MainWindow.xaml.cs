@@ -73,15 +73,15 @@ namespace BPMbenchmarksGenerator
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
                     await GenerateAllCasesAsync(InstancesSetsNumber);
             }
-            else if(radioCustomSemi.IsChecked == true)
+            else if (radioCustomSemi.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
-                    GenerateWithDefaultRange(InstancesSetsNumber);
+                    await GenerateWithDefaultRangeAsync(InstancesSetsNumber);
             }
-            else if(radioCustomFull.IsChecked == true)
+            else if (radioCustomFull.IsChecked == true)
             {
                 if (InstancesSetsNumber >= lowestAcceptableNumberOfSets)
-                    GenerateWithCustomRange(InstancesSetsNumber);
+                    await GenerateWithCustomRangeAsync(InstancesSetsNumber);
             }
             else
             {
@@ -115,11 +115,10 @@ namespace BPMbenchmarksGenerator
 
         private async Task GenerateAllCasesAsync(int SetsNumber)
         {
+            btnGenerate.IsEnabled = false;
 
             await Task.Run(() =>
             {
-                MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
-
                 string statusCleanUp = string.Format($"Save directory:\n {_saveDirectory}\n\n Benchmarks parameters: \n\n");
                 this.Dispatcher.Invoke((Action)delegate { txtStatus.Text = statusCleanUp; });
 
@@ -156,10 +155,16 @@ namespace BPMbenchmarksGenerator
                 }
 
 
-                // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
-                BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
+                PrintAllGeneratedBenchmarksToFile();
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusAsSuccessful(txtStatus);
+                });
 
             }); //await Task.Run(() =>
+
+            btnGenerate.IsEnabled = true;
         }
 
 
@@ -172,33 +177,53 @@ namespace BPMbenchmarksGenerator
         }
 
 
-        private void GenerateWithDefaultRange(int SetsNumber)
+        private async Task GenerateWithDefaultRangeAsync(int SetsNumber)
         {
-            MessageBox.Show("radioCustomSemi.IsChecked");
+            btnGenerate.IsEnabled = false;
 
-
-            SetGenerationArgumentsFromDefaultRange();
-
-
-            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
-
-            allGeneratedBenchmarks.Clear();
-            for (int i = 0; i < SetsNumber; i++)
+            await Task.Run(() =>
             {
-                GenerateAndAddBencharkInstanceToList(generationArgs);
-            }
 
-          //  BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
+                SetGenerationArgumentsFromDefaultRange();
 
-            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
+                });
+
+                allGeneratedBenchmarks.Clear();
+                for (int i = 0; i < SetsNumber; i++)
+                {
+                    GenerateAndAddBencharkInstanceToList(generationArgs);
+                }
+
+                PrintAllGeneratedBenchmarksToFile();
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusAsSuccessful(txtStatus);
+                });
+
+            });
+
+            btnGenerate.IsEnabled = true;
         }
 
         private void SetGenerationArgumentsFromDefaultRange()
         {
-            string stringNumberOfJobs = (this.combNumOfJobs.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string stringJobProcTimeRange = (this.combJobProcTime.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string stringJobSizeRange = (this.combJobSize.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string stringMachineCapacity = "10";
+            string stringNumberOfJobs = "";
+            string stringJobProcTimeRange = "";
+            string stringJobSizeRange = "";
+            string stringMachineCapacity = "";
+
+            this.Dispatcher.Invoke((Action)delegate
+            {
+                stringNumberOfJobs = (this.combNumOfJobs.SelectedItem as ComboBoxItem)?.Content.ToString();
+                stringJobProcTimeRange = (this.combJobProcTime.SelectedItem as ComboBoxItem)?.Content.ToString();
+                stringJobSizeRange = (this.combJobSize.SelectedItem as ComboBoxItem)?.Content.ToString();
+                stringMachineCapacity = "10";
+            });
 
             BPMGeneratorMethods.SetNumberOfJobsArgs(stringNumberOfJobs, generationArgs);
             BPMGeneratorMethods.SetJobProcTimeArgs(stringJobProcTimeRange, generationArgs);
@@ -207,51 +232,74 @@ namespace BPMbenchmarksGenerator
 
         }
 
-        private void GenerateWithCustomRange(int SetsNumber)
+        private async Task GenerateWithCustomRangeAsync(int SetsNumber)
         {
-            MessageBox.Show("stringInstancesSetsNumber: ", SetsNumber.ToString());
-            
-            string stringNumberOfJobs = txtNumOfJobs.Text;
-            string stringMachineCapacity = txtMachineCapacity.Text;
+            btnGenerate.IsEnabled = false;
 
-            string stringJobProcessingTimeFrom = txtJobProcTimeFrom.Text;
-            string stringJobProcessingTimeTo = txtJobProcTimeTo.Text;
-
-            string stringJobSizeFrom = txtJobSizeFrom.Text;
-            string stringJobSizeTo = txtJobSizeTo.Text;
-
-            int lowestPossibleNum = 1;
-
-            try
+            await Task.Run(() =>
             {
-                generationArgs.NumberOfJobs = BPMGeneratorMethods.ParseStringToInteger(stringNumberOfJobs, txbNumOfJobs, lowestPossibleNum);
-                generationArgs.MachineCapacity = BPMGeneratorMethods.ParseStringToInteger(stringMachineCapacity, txbMachineCapacity, lowestPossibleNum);
+                string stringNumberOfJobs = "";
+                string stringMachineCapacity = "";
+                string stringJobProcessingTimeFrom = "";
+                string stringJobProcessingTimeTo = "";
+                string stringJobSizeFrom = "";
+                string stringJobSizeTo = "";
 
-                generationArgs.JobProcessingTimeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeFrom, txbJobProcTime, lowestPossibleNum);
-                generationArgs.JobProcessingTimeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeTo, txbJobProcTime, lowestPossibleNum);
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    stringNumberOfJobs = txtNumOfJobs.Text;
+                    stringMachineCapacity = txtMachineCapacity.Text;
 
-                generationArgs.JobSizeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeFrom, txbJobSize, lowestPossibleNum);
-                generationArgs.JobSizeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeTo, txbJobSize, lowestPossibleNum);
-            }
-            catch (FormatException fex)
-            {
-                MessageBox.Show(fex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                    stringJobProcessingTimeFrom = txtJobProcTimeFrom.Text;
+                    stringJobProcessingTimeTo = txtJobProcTimeTo.Text;
 
-            txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
+                    stringJobSizeFrom = txtJobSizeFrom.Text;
+                    stringJobSizeTo = txtJobSizeTo.Text;
+                });
 
-            allGeneratedBenchmarks.Clear();
-            for (int i = 0; i < SetsNumber; i++)
-            {
-                GenerateAndAddBencharkInstanceToList(generationArgs);
-            }
+                int lowestPossibleNum = 1;
 
-           // BPMGeneratorMethods.PrintAllGeneratedBenchmarksToMessageBox(allGeneratedBenchmarks);
-            BPMGeneratorMethods.printAllGeneratedBenchmarksToFile(_saveDirectory, allGeneratedBenchmarks);
+                try
+                {
+                    generationArgs.NumberOfJobs = BPMGeneratorMethods.ParseStringToInteger(stringNumberOfJobs, txbNumOfJobs, lowestPossibleNum);
+                    generationArgs.MachineCapacity = BPMGeneratorMethods.ParseStringToInteger(stringMachineCapacity, txbMachineCapacity, lowestPossibleNum);
+
+                    generationArgs.JobProcessingTimeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeFrom, txbJobProcTime, lowestPossibleNum);
+                    generationArgs.JobProcessingTimeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobProcessingTimeTo, txbJobProcTime, lowestPossibleNum);
+
+                    generationArgs.JobSizeFrom = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeFrom, txbJobSize, lowestPossibleNum);
+                    generationArgs.JobSizeTo = BPMGeneratorMethods.ParseStringToInteger(stringJobSizeTo, txbJobSize, lowestPossibleNum);
+                }
+                catch (FormatException fex)
+                {
+                    MessageBox.Show(fex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusWithGenArgsAndSaveDirectory(generationArgs, _saveDirectory);
+                });
+
+                allGeneratedBenchmarks.Clear();
+                for (int i = 0; i < SetsNumber; i++)
+                {
+                    GenerateAndAddBencharkInstanceToList(generationArgs);
+                }
+
+                PrintAllGeneratedBenchmarksToFile();
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text = BPMGeneratorMethods.UpdateStatusAsSuccessful(txtStatus);
+                });
+
+            });
+
+            btnGenerate.IsEnabled = true;
         }
 
         private void GenerateAndAddBencharkInstanceToList(GenerationArgs gArgs)
@@ -276,5 +324,37 @@ namespace BPMbenchmarksGenerator
             }
         }
 
+
+        private void PrintAllGeneratedBenchmarksToFile()
+        {
+
+            string saveDestination = null;
+            int benchmarkNumber = 0;
+
+            this.Dispatcher.Invoke((Action)delegate
+            {
+                txtStatus.Text += "Created files:\n";
+            });
+
+            foreach (BenchmarkInstance b in allGeneratedBenchmarks)
+            {
+                saveDestination = _saveDirectory + "\\" + benchmarkNumber + b.Name + ".txt";
+
+                BPMGeneratorMethods.PrintBenchmarkToFile(b, saveDestination);
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    txtStatus.Text += $"{benchmarkNumber + b.Name}.txt\n";
+                });
+
+                    benchmarkNumber++;
+            }
+
+            this.Dispatcher.Invoke((Action)delegate
+            {
+                txtStatus.Text += "\n\n";
+            });
+
+        }
     }
 }

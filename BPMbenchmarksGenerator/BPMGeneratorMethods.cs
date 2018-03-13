@@ -213,34 +213,34 @@ namespace BPMbenchmarksGenerator
             return status;
         }
 
-        public static void printAllGeneratedBenchmarksToFile(string saveDirectory, List<BenchmarkInstance> allBenchmarks)
+        public static string UpdateStatusAsSuccessful(TextBox txStatus)
         {
-            string saveDestination = null;
-            int benchmarkNumber = 0;
+            string status = txStatus.Text;
 
-           foreach(BenchmarkInstance b in allBenchmarks)
+            status += string.Format($"Benchmark generation finished successfully!");
+
+            return status;
+        }
+
+        public static void PrintBenchmarkToFile(BenchmarkInstance instance, string destination)
+        {
+            try
             {
-                saveDestination = saveDirectory + "\\" + benchmarkNumber + b.Name + ".txt";
-
-                try
-                {
-                    File.WriteAllText(saveDestination, b.ToString());
-                }
-                catch(ArgumentNullException anex)
-                {
-                    MessageBox.Show(anex.Message);
-                }
-                catch(ArgumentException aex)
-                {
-                    MessageBox.Show(aex.Message);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-                benchmarkNumber++;
+                File.WriteAllText(destination, instance.ToString());
             }
+            catch (ArgumentNullException anex)
+            {
+                MessageBox.Show(anex.Message);
+            }
+            catch (ArgumentException aex)
+            {
+                MessageBox.Show(aex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         public static void PrintAllGeneratedBenchmarksToMessageBox(List<BenchmarkInstance> allBenchmarks)
