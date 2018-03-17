@@ -47,5 +47,45 @@ namespace BPMbenchmarksGenerator.Tests
 
             jb.JobSize.Should().BeInRange(generationArgsMock.JobSizeFrom, generationArgsMock.JobSizeTo);
         }
+
+        [Test]
+        public void GenerateOneBencharkInstance_MachineCapacity_ValueIsCorrect()
+        {
+            IGenerationArgs generationArgsMock = Mock.Of<IGenerationArgs>(generationArgs =>
+            generationArgs.MachineCapacity == 55);
+
+            BenchmarkInstance bi = BPMGeneratorMethods.GenerateOneBencharkInstance(generationArgsMock);
+
+            bi.MachineCapacity.Should().Be(generationArgsMock.MachineCapacity);
+
+        }
+
+        [Test]
+        public void GenerateOneBencharkInstance_NumberOfJobs_ValueIsCorrect()
+        {
+            IGenerationArgs generationArgsMock = Mock.Of<IGenerationArgs>(generationArgs =>
+            generationArgs.NumberOfJobs == 10);
+
+            BenchmarkInstance bi = BPMGeneratorMethods.GenerateOneBencharkInstance(generationArgsMock);
+
+            bi.NumberOfJobs.Should().Be(generationArgsMock.NumberOfJobs);
+        }
+
+        [Test]
+        public void GenerateOneBencharkInstance_JobParametersList_LengthIsCorrect()
+        {
+            IGenerationArgs generationArgsMock = Mock.Of<IGenerationArgs>(generationArgs =>
+            generationArgs.NumberOfJobs == 10);
+
+            BenchmarkInstance bi = BPMGeneratorMethods.GenerateOneBencharkInstance(generationArgsMock);
+
+            bi.JobsList.Should().HaveCount(generationArgsMock.NumberOfJobs);
+        }
+
+        [Test]
+        public void DecomposeSquareBracketStringToInts_CorrectStringArgument_ArrayLengthIsCorrect()
+        {
+
+        }
     }
 }
