@@ -15,15 +15,15 @@ namespace BPMbenchmarksGenerator
 
         private static Random r = new Random(DateTime.Now.Millisecond);
 
-        public static BenchmarkInstance GenerateOneBencharkInstance(GenerationArgs genArgs)
+        public static BenchmarkInstance GenerateOneBencharkInstance(IGenerationArgs igenArgs)
         {
             List<JobParameters> jp = new List<JobParameters>();
 
             try
             {
-                for (int i = 0; i < genArgs.NumberOfJobs; i++)
+                for (int i = 0; i < igenArgs.NumberOfJobs; i++)
                 {
-                    jp.Add(GenerateJobParameters(i,genArgs));
+                    jp.Add(GenerateJobParameters(i, igenArgs));
                 }
             }
             catch(ArgumentOutOfRangeException)
@@ -31,11 +31,11 @@ namespace BPMbenchmarksGenerator
                 throw new ArgumentOutOfRangeException("Job processing or job size values are not in order. Check Customize tab.");
             }
 
-            string instanceName = "J" + genArgs.NumberOfJobs.ToString() +
-                "p" + genArgs.JobProcessingTimeFrom  + genArgs.JobProcessingTimeTo +
-                "s" + genArgs.JobSizeFrom + genArgs.JobSizeTo;
+            string instanceName = "J" + igenArgs.NumberOfJobs.ToString() +
+                "p" + igenArgs.JobProcessingTimeFrom  + igenArgs.JobProcessingTimeTo +
+                "s" + igenArgs.JobSizeFrom + igenArgs.JobSizeTo;
 
-            BenchmarkInstance instance = new BenchmarkInstance(genArgs.NumberOfJobs, genArgs.MachineCapacity, instanceName, jp);
+            BenchmarkInstance instance = new BenchmarkInstance(igenArgs.NumberOfJobs, igenArgs.MachineCapacity, instanceName, jp);
 
             return instance;
         }

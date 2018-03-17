@@ -26,14 +26,12 @@ namespace BPMbenchmarksGenerator.Tests
             int idx = 2;
             IGenerationArgs generationArgsMock = Mock.Of<IGenerationArgs>(generationArgs =>
             generationArgs.JobProcessingTimeFrom == 10 &&
-            generationArgs.JobProcessingTimeTo == 12 &&
-            generationArgs.JobSizeFrom == 55 &&
-            generationArgs.JobSizeTo == 60
+            generationArgs.JobProcessingTimeTo == 12
             );
 
             JobParameters jb = BPMGeneratorMethods.GenerateJobParameters(idx, generationArgsMock);
 
-            jb.JobProcessingTime.Should().BeInRange(generationArgsMock.JobProcessingTimeFrom, generationArgsMock.JobProcessingTimeTo);       
+            jb.JobProcessingTime.Should().BeInRange(generationArgsMock.JobProcessingTimeFrom, generationArgsMock.JobProcessingTimeTo);
         }
 
         [Test]
@@ -41,8 +39,6 @@ namespace BPMbenchmarksGenerator.Tests
         {
             int idx = 2;
             IGenerationArgs generationArgsMock = Mock.Of<IGenerationArgs>(generationArgs =>
-            generationArgs.JobProcessingTimeFrom == 10 &&
-            generationArgs.JobProcessingTimeTo == 12 &&
             generationArgs.JobSizeFrom == 55 &&
             generationArgs.JobSizeTo == 60
             );
