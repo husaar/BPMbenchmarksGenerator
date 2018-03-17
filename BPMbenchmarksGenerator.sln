@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMbenchmarksGenerator", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMbenchmarksGenerator.Tests", "BPMbenchmarksGenerator.Tests\BPMbenchmarksGenerator.Tests.csproj", "{77FB6002-1EE3-4F8E-A16B-8D345DC5B607}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brudnopis", "Brudnopis\Brudnopis.csproj", "{74D46F90-8B43-4C99-8697-02264297E594}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{77FB6002-1EE3-4F8E-A16B-8D345DC5B607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77FB6002-1EE3-4F8E-A16B-8D345DC5B607}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77FB6002-1EE3-4F8E-A16B-8D345DC5B607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74D46F90-8B43-4C99-8697-02264297E594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74D46F90-8B43-4C99-8697-02264297E594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74D46F90-8B43-4C99-8697-02264297E594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74D46F90-8B43-4C99-8697-02264297E594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
