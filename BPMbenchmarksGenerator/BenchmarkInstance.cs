@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using BPMbenchmarksGenerator.Interfaces;
 
 namespace BPMbenchmarksGenerator
 {
-    public class BenchmarkInstance
+    public class BenchmarkInstance : IBenchmarkInstance
     {
         public int NumberOfJobs { get; }
         public int MachineCapacity { get; }
