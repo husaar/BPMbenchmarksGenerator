@@ -149,15 +149,13 @@ namespace BPMbenchmarksGenerator
             catch(FormatException fex)
             {
                 MessageBox.Show($"Message: {fex.Message} \n Source: {fex.Source}");
+                return null;
             }
             catch(Exception ex)
             {
                 MessageBox.Show($"Message: {ex.Message} \n Source: {ex.Source}");
-            }
-
-
-            return null;
-           
+                return null;
+            }        
         }
 
         public static void SetMachineCapacityArgs(string machineCapacity, GenerationArgs genArgs)

@@ -82,10 +82,41 @@ namespace BPMbenchmarksGenerator.Tests
             bi.JobsList.Should().HaveCount(generationArgsMock.NumberOfJobs);
         }
 
-        [Test]
-        public void DecomposeSquareBracketStringToInts_CorrectStringArgument_ArrayLengthIsCorrect()
+        [TestCase("[2,7]")]
+        [TestCase("[ 2, 7]")]
+        [TestCase("[ 2, 7 ]")]
+        [TestCase("[2     , 7]")]
+        [TestCase("[  2  ,   7  ]")]
+        public void DecomposeSquareBracketStringToInts_CorrectStringArgument_ArrayLengthIsCorrect(string sqBracket)
         {
+            int[] decomposedArgs = BPMGeneratorMethods.DecomposeSquareBracketStringToInts(sqBracket);
 
+            decomposedArgs.Should().HaveCount(2);
+        }
+
+        [TestCase("[2,7]")]
+        [TestCase("[ 2, 7]")]
+        [TestCase("[ 2, 7 ]")]
+        [TestCase("[2     , 7]")]
+        [TestCase("[  2  ,   7  ]")]
+        public void DecomposeSquareBracketStringToInts_CorrectStringArgument_ArrayFirstElementIsCorrect(string sqBracket)
+        {
+            int[] decomposedArgs = BPMGeneratorMethods.DecomposeSquareBracketStringToInts(sqBracket);
+
+            decomposedArgs[0].Should().Be(2);
+        }
+
+
+        [TestCase("[2,7]")]
+        [TestCase("[ 2, 7]")]
+        [TestCase("[ 2, 7 ]")]
+        [TestCase("[2     , 7]")]
+        [TestCase("[  2  ,   7  ]")]
+        public void DecomposeSquareBracketStringToInts_CorrectStringArgument_ArraySecondElementIsCorrect(string sqBracket)
+        {
+            int[] decomposedArgs = BPMGeneratorMethods.DecomposeSquareBracketStringToInts(sqBracket);
+
+            decomposedArgs[1].Should().Be(7);
         }
     }
 }
