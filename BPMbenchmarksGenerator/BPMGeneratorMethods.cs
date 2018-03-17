@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using BPMbenchmarksGenerator.Interfaces;
 
 namespace BPMbenchmarksGenerator
 {
@@ -39,10 +40,10 @@ namespace BPMbenchmarksGenerator
             return instance;
         }
 
-        private static JobParameters GenerateJobParameters(int index, GenerationArgs gArgs)
+        public static JobParameters GenerateJobParameters(int index, IGenerationArgs igArgs)
         {
-            return new JobParameters(index, r.Next(gArgs.JobProcessingTimeFrom, gArgs.JobProcessingTimeTo),
-                        r.Next(gArgs.JobSizeFrom, gArgs.JobSizeTo));
+            return new JobParameters(index, r.Next(igArgs.JobProcessingTimeFrom, igArgs.JobProcessingTimeTo),
+                        r.Next(igArgs.JobSizeFrom, igArgs.JobSizeTo));
         }
 
         public static int ParseStringToInteger(string s, int lowestPossibleNumber)
