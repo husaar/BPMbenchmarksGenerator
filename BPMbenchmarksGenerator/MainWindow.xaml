@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BPMbenchmarksGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="486.5" Width="368" WindowStartupLocation="CenterScreen">
+        Title="BPMbenhmarksGenerator" Height="486.5" Width="368" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl x:Name="tabSystem" HorizontalAlignment="Left" Height="437" Margin="10,10,0,0" VerticalAlignment="Top" Width="341">
+        <TabControl x:Name="tabSystem" HorizontalAlignment="Left" Height="437" Margin="10,10,0,0" VerticalAlignment="Top" Width="341" BorderBrush="#FF3E6DE9">
 
-            <TabItem Header="Generate" >
+            <TabItem x:Name="tbiGenerate" Header="Generate" >
                 <StackPanel Background="White" Margin="0,0,1.333,0">
 
                     <ToolBar x:Name="tlbGenerateTab" Height="31" Margin="0,10,10,0">
@@ -18,8 +18,10 @@
                                 <ColumnDefinition Width="220*"/>
                                 <ColumnDefinition Width="273*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Width="50" x:Name="btnPath" Content="Path" Grid.Column="0" Click="btnPath_Click" />
-                            <Button Width="50" x:Name="btnExit" Content="Exit" Grid.Column="1" Click="btnExit_Click"/>
+                            <Button Width="50" x:Name="btnPath" Content="Path"
+                                    Background="#FF3E6DE9" Foreground="White" Grid.Column="0" Click="btnPath_Click" BorderBrush="#FF3E6DE9" />
+                            <Button Width="50" x:Name="btnExit" Content="Exit"
+                                    Background="#FF3E6DE9" Foreground="White" Grid.Column="1" Click="btnExit_Click" BorderBrush="#FF3E6DE9" Margin="2,0,-2,-0.333"/>
                         </Grid>
 
                     </ToolBar>
@@ -31,23 +33,22 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="txbInstancesSetsNumber" Grid.Column="0" 
                                Text="Number of instances sets to generate:" Grid.ColumnSpan="2"/>
-                        <TextBox x:Name="txtInstancesSetsNumber" Text="1" TextWrapping="Wrap" Grid.Column="1" Margin="72,0,0.333,0"/>
+                        <TextBox x:Name="txtInstancesSetsNumber" Text="1" TextWrapping="Wrap" Grid.Column="1" Margin="72,0,0.333,0" BorderBrush="#FF3E6DE9"/>
                     </Grid>
-
-                    <Button x:Name="btnGenerate" Height="40" Margin="10,20,10,20" Content="Generate" Click="btnGenerate_Click"/>
+                    <Button x:Name="btnGenerate" Height="40" Margin="10,20,10,20" Content="Generate" Click="btnGenerate_Click" Background="#FF3E6DE9" Foreground="White" BorderBrush="#FF3E6DE9"/>
                     <TextBox x:Name="txtStatus" IsReadOnly="True" Height="244" TextWrapping="Wrap" 
-                             Margin="10,0,10.333,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                             Margin="10,0,10.333,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="#FF3E6DE9"/>
 
                 </StackPanel>
             </TabItem>
 
-            <TabItem Header="Customize">
+            <TabItem x:Name="tbiCustomize" Header="Customize" Background="#FF3E6DE9" Foreground="White">
                 <StackPanel Background="White">
                     <RadioButton x:Name="radioAllCases" GroupName="BenchmarksParameters" Content="Generate all standard benchmark instances."
                                  Margin="10,15,10,0"/>
 
                     <RadioButton x:Name="radioCustomSemi" GroupName="BenchmarksParameters"
-                                 Margin="10,15,10.333,0">
+                                 Margin="10,15,10.333,0" BorderBrush="#FF3E6DE9">
                         <StackPanel Width="300">
                             <TextBlock Text="Generate benchmark instances with default range."/>
                             <Grid Margin="0,10,0,0">
@@ -63,7 +64,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Number of Jobs: " Grid.Column="0" Grid.Row="0" Margin="0,0,15,0"/>
                                 <ComboBox x:Name="combNumOfJobs" Grid.Column="1" Grid.Row="0" Margin="5,0,78,5" SelectedIndex="0"
-                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
+                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}" BorderBrush="#FF3E6DE9">
                                     <ComboBoxItem Content="10"/>
                                     <ComboBoxItem Content="20"/>
                                     <ComboBoxItem Content="50"/>
@@ -71,13 +72,13 @@
                                 </ComboBox>
                                 <TextBlock Text="Job processing time: " Grid.Column="0" Grid.Row="1" Margin="0,0,15,0" />
                                 <ComboBox x:Name="combJobProcTime" Grid.Column="1" Grid.Row="1" Margin="5,0,78,5"  SelectedIndex="0"
-                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
+                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}" BorderBrush="#FF3E6DE9">
                                     <ComboBoxItem Content="[1,10]"/>
                                     <ComboBoxItem Content="[1,20]"/>
                                 </ComboBox>
                                 <TextBlock Text="Job size: " Grid.Column="0" Grid.Row="2" Margin="0,0,15,0"/>
                                 <ComboBox x:Name="combJobSize" Grid.Column="1" Grid.Row="2" Margin="5,0,78,5" SelectedIndex="0"
-                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}">
+                                          IsEnabled="{Binding IsChecked, ElementName=radioCustomSemi}" BorderBrush="#FF3E6DE9">
                                     <ComboBoxItem Content="[1,10]"/>
                                     <ComboBoxItem Content="[2,4]"/>
                                     <ComboBoxItem Content="[4,8]"/>
@@ -106,7 +107,7 @@
                                 <TextBlock x:Name="txbNumOfJobs" Text="Number of Jobs: " Grid.Column="0" 
                                            Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,169,0"/>
                                 <TextBox x:Name="txtNumOfJobs" Text="10" Grid.Column="1" Grid.Row="0" Margin="5,0,80,5" 
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" BorderBrush="#FF3E6DE9"/>
                                 <TextBlock x:Name="txbJobProcTime" Text="Job processing time: "
                                            Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,169,0"/>
 
@@ -117,9 +118,9 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <TextBox x:Name="txtJobProcTimeFrom" Text="1" Margin="42,0,3.333,5" Grid.Column="0"
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" BorderBrush="#FF3E6DE9"/>
                                     <TextBox x:Name="txtJobProcTimeTo" Text="10" Margin="1.667,0,44,5"
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" Grid.Column="1"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" Grid.Column="1" BorderBrush="#FF3E6DE9"/>
                                 </Grid>
                                 <TextBlock x:Name="txbJobSize" Text="Job size: " 
                                            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,169,0"/>
@@ -130,15 +131,15 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <TextBox x:Name="txtJobSizeFrom" Text="1"  Margin="42,0,3.333,5" Grid.Column="0"
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" BorderBrush="#FF3E6DE9"/>
                                     <TextBox x:Name="txtJobSizeTo" Text="10" Margin="1.667,0,44,5" Grid.Column="1"
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" BorderBrush="#FF3E6DE9"/>
                                 </Grid>
 
                                 <TextBlock x:Name="txbMachineCapacity" Text="Machine capacity: " 
                                            Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,0,80,5"/>
                                 <TextBox x:Name="txtMachineCapacity" Text="10" Grid.Column="1" Grid.Row="3" Margin="5,0,80,5" 
-                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}"/>
+                                         IsEnabled="{Binding IsChecked, ElementName=radioCustomFull}" BorderBrush="#FF3E6DE9"/>
                             </Grid>
                         </StackPanel>
 
