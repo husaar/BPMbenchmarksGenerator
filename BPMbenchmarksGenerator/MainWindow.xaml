@@ -31,11 +31,14 @@
                             <ColumnDefinition Width="220*"/>
                             <ColumnDefinition Width="273*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="txbInstancesSetsNumber" Grid.Column="0" 
+                        <TextBlock x:Name="txbInstancesSetsNumber" Grid.Column="0" Foreground="Black"
                                Text="Number of instances sets to generate:" Grid.ColumnSpan="2"/>
                         <TextBox x:Name="txtInstancesSetsNumber" Text="1" TextWrapping="Wrap" Grid.Column="1" Margin="72,0,0.333,0" BorderBrush="#FF3E6DE9"/>
                     </Grid>
-                    <Button x:Name="btnGenerate" Height="40" Margin="10,20,10,20" Content="Generate" Click="btnGenerate_Click" Background="#FF3E6DE9" Foreground="White" BorderBrush="#FF3E6DE9"/>
+                    <Button x:Name="btnGenerate"  Style="{StaticResource StillRectangleRadiusButton1}"
+                            Height="40" Width="200" Margin="10,20,10,20" Content="Generate"
+                            Click="btnGenerate_Click" 
+                            Background="#FF3E6DE9" Foreground="White" BorderBrush="#FF3E6DE9"/>
                     <TextBox x:Name="txtStatus" IsReadOnly="True" Height="244" TextWrapping="Wrap" 
                              Margin="10,0,10.333,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="#FF3E6DE9"/>
 

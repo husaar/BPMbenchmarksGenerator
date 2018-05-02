@@ -26,12 +26,13 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="mainBorder" Property="Margin" Value="0,-2,0,0"/>
-                                <Setter TargetName="mainBorder" Property="Background" Value="White"/>
-                                <Setter Property="Foreground" Value="#FF3E6DE9"/>
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="mainBorder" Property="Background" Value="#FF3E6DE9"/>
                                 <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="mainBorder" Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#FF3E6DE9"/>
+
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -73,13 +74,21 @@
                                 </Setter>
 
                             </Trigger>
+
+                            <Trigger Property = "IsEnabled" Value = "False">
+                                <Setter TargetName="buttonSurface" Property="Fill" Value="White"/>
+                                <Setter TargetName="buttonSurface" Property="Stroke" Value="#FF3E6DE9"/>
+                                <Setter TargetName="buttonSurface" Property="StrokeThickness" Value="1"/>
+                                <Setter TargetName="buttonCaption" Property="Foreground" Value="#FF3E6DE9"/>
+                            </Trigger>
+
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
         </Style>
-        
-        
+
+
     </Application.Resources>
 </Application>
