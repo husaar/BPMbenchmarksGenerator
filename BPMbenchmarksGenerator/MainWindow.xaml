@@ -12,16 +12,16 @@
             <TabItem x:Name="tbiGenerate" Header="Generate" Style="{StaticResource TabItemStyle1}" >
                 <StackPanel Background="White" Margin="0,0,1.333,0">
 
-                    <ToolBar x:Name="tlbGenerateTab" Height="31" Margin="0,10,10,0">
+                    <ToolBar x:Name="tlbGenerateTab" Height="40" Margin="0,10,10.333,0" Background="White" BorderBrush="#FF3E6DE9">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="220*"/>
-                                <ColumnDefinition Width="273*"/>
+                                <ColumnDefinition Width="250*"/>
+                                <ColumnDefinition Width="250*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Width="50" x:Name="btnPath" Content="Path"
-                                    Background="#FF3E6DE9" Foreground="White" Grid.Column="0" Click="btnPath_Click" BorderBrush="#FF3E6DE9" />
-                            <Button Width="50" x:Name="btnExit" Content="Exit"
-                                    Background="#FF3E6DE9" Foreground="White" Grid.Column="1" Click="btnExit_Click" BorderBrush="#FF3E6DE9" Margin="2,0,-2,-0.333"/>
+                            <Button x:Name="btnPath" Content="Path" Style="{StaticResource StillRectangleRadiusButton1}"
+                                    Grid.Column="0" Click="btnPath_Click"  />
+                            <Button  x:Name="btnExit" Content="Exit" Style="{StaticResource StillRectangleRadiusButton1}"
+                                    Grid.Column="1" Click="btnExit_Click" />
                         </Grid>
 
                     </ToolBar>
