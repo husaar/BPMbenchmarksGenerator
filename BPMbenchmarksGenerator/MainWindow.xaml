@@ -9,7 +9,7 @@
     <Grid>
         <TabControl x:Name="tabSystem" HorizontalAlignment="Left" Height="437" Margin="10,10,0,0" VerticalAlignment="Top" Width="341" BorderBrush="#FF3E6DE9">
 
-            <TabItem x:Name="tbiGenerate" Header="Generate" >
+            <TabItem x:Name="tbiGenerate" Header="Generate" Style="{StaticResource TabItemStyle1}" >
                 <StackPanel Background="White" Margin="0,0,1.333,0">
 
                     <ToolBar x:Name="tlbGenerateTab" Height="31" Margin="0,10,10,0">
@@ -42,7 +42,7 @@
                 </StackPanel>
             </TabItem>
 
-            <TabItem x:Name="tbiCustomize" Header="Customize" Background="#FF3E6DE9" Foreground="White">
+            <TabItem x:Name="tbiCustomize" Header="Customize" Style="{StaticResource TabItemStyle1}">
                 <StackPanel Background="White">
                     <RadioButton x:Name="radioAllCases" GroupName="BenchmarksParameters" Content="Generate all standard benchmark instances."
                                  Margin="10,15,10,0"/>

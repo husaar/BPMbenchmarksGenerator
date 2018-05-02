@@ -4,6 +4,41 @@
              xmlns:local="clr-namespace:BPMbenchmarksGenerator"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+        <Style x:Key="TabItemStyle1" TargetType="TabItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid x:Name="tabItemLayout">
+                            <Border BorderThickness="1,1,1,0" BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                    Background="{TemplateBinding Panel.Background}" Name="mainBorder" Margin="0,0,0,0">
+                                <Border BorderThickness="1,1,1,0" Name="innerBorder" Margin="-1,-1,-1,-1" Opacity="0" />
+                            </Border>
+                            <ContentPresenter Content="{TemplateBinding HeaderedContentControl.Header}"
+                                ContentTemplate="{TemplateBinding HeaderedContentControl.HeaderTemplate}"
+                                ContentStringFormat="{TemplateBinding HeaderedContentControl.HeaderStringFormat}"
+                                ContentSource="Header"
+                                Margin="{TemplateBinding Control.Padding}" 
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" Focusable="False"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="mainBorder" Property="Margin" Value="0,-2,0,0"/>
+                                <Setter TargetName="mainBorder" Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#FF3E6DE9"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="mainBorder" Property="Background" Value="#FF3E6DE9"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
     </Application.Resources>
 </Application>
