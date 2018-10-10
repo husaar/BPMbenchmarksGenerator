@@ -13,6 +13,6 @@ namespace BPMbenchmarksGenerator.Interfaces
         int MachineCapacity { get; }
         string Name { get; }
 
-        ReadOnlyCollection<JobParameters> JobsList { get; }
+        ReadOnlyCollection<IJobParameters> JobsList { get; }
     }
 }

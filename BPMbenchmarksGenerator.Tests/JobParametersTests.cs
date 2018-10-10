@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using FluentAssertions;
 using Moq;
-using BPMbenchmarksGenerator;
+using BPMbenchmarksGenerator.Models;
 
 namespace BPMbenchmarksGenerator.Tests
 {

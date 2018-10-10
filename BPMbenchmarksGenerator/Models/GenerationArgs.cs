@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BPMbenchmarksGenerator.Interfaces;
 
-namespace BPMbenchmarksGenerator
+namespace BPMbenchmarksGenerator.Models
 {
-    public class GenerationArgs : IGenerationArgs
+    public partial class GenerationArgs : IGenerationArgs
     {
         public int NumberOfJobs { get; set; } = -1;
         public int MachineCapacity { get; set; } = -1;
@@ -29,16 +29,5 @@ namespace BPMbenchmarksGenerator
             JobSizeFrom = jobSizeFrom;
             JobSizeTo = jobSizeTo;
         }
-
-        public void Reset()
-        {
-
-        NumberOfJobs = -1;
-        MachineCapacity = -1;
-        JobProcessingTimeFrom = -1;
-        JobProcessingTimeTo = -1;
-        JobSizeFrom = -1;
-        JobSizeTo = -1;
-    }
     }
 }

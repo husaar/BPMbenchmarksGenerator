@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using FluentAssertions;
 using Moq;
-using BPMbenchmarksGenerator;
+using BPMbenchmarksGenerator.Interfaces;
+using BPMbenchmarksGenerator.Models;
 
 namespace BPMbenchmarksGenerator.Tests
 {
@@ -16,7 +17,7 @@ namespace BPMbenchmarksGenerator.Tests
         [Test]
         public void BenchmarkInstance_NewObjectNumberOfJobs_IsCorrect()
         {
-            List<JobParameters> list = new List<JobParameters>();
+            List<IJobParameters> list = new List<IJobParameters>();
             var jobParametersMock = It.IsAny<JobParameters>();
 
             list.Add(jobParametersMock);
@@ -29,7 +30,7 @@ namespace BPMbenchmarksGenerator.Tests
         [Test]
         public void BenchmarkInstance_NewObjectMachineCapacity_IsCorrect()
         {
-            List<JobParameters> list = new List<JobParameters>();
+            List<IJobParameters> list = new List<IJobParameters>();
             var jobParametersMock = It.IsAny<JobParameters>();
 
             list.Add(jobParametersMock);
@@ -42,7 +43,7 @@ namespace BPMbenchmarksGenerator.Tests
         [Test]
         public void BenchmarkInstance_NewObjectJobsList_ContaintTwoObjects()
         {
-            List<JobParameters> list = new List<JobParameters>();
+            List<IJobParameters> list = new List<IJobParameters>();
             var jobParametersMock = It.IsAny<JobParameters>();
 
             list.Add(jobParametersMock);

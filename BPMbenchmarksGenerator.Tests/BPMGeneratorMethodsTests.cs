@@ -8,6 +8,7 @@ using FluentAssertions;
 using Moq;
 using BPMbenchmarksGenerator;
 using BPMbenchmarksGenerator.Interfaces;
+using BPMbenchmarksGenerator.Models;
 
 namespace BPMbenchmarksGenerator.Tests
 {

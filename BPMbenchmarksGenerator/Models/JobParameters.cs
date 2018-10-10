@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BPMbenchmarksGenerator.Interfaces;
 
-namespace BPMbenchmarksGenerator
+namespace BPMbenchmarksGenerator.Models
 {
-    public class JobParameters : IJobParameters
+    public partial class JobParameters : IJobParameters
     {
         public int JobParametersIndex { get; }
         public int JobProcessingTime { get; }
@@ -20,9 +20,5 @@ namespace BPMbenchmarksGenerator
             JobSize = jobSize;
         }
 
-        public override string ToString()
-        {
-            return string.Format($"{JobParametersIndex},{JobProcessingTime},{JobSize},");
-        }
     }
 }

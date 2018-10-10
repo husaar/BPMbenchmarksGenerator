@@ -64,19 +64,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BenchmarkInstance.cs" />
+    <Compile Include="Models\BenchmarkInstance.cs" />
     <Compile Include="BPMGeneratorMethods.cs" />
-    <Compile Include="GenerationArgs.cs" />
+    <Compile Include="Models\GenerationArgs.cs" />
     <Compile Include="Interfaces\IBenchmarkInstance.cs" />
     <Compile Include="Interfaces\IGenerationArgs.cs" />
     <Compile Include="Interfaces\IJobParameters.cs" />
-    <Compile Include="JobParameters.cs" />
+    <Compile Include="Models\JobParameters.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Partials\BenchmarkInstanceToString.cs" />
+    <Compile Include="Models\Partials\GenerationArgsReset.cs" />
+    <Compile Include="Models\Partials\JobParametersToString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using BPMbenchmarksGenerator.Interfaces;
+using BPMbenchmarksGenerator.Models;
 
 namespace BPMbenchmarksGenerator
 {
@@ -17,7 +18,7 @@ namespace BPMbenchmarksGenerator
 
         public static BenchmarkInstance GenerateOneBencharkInstance(IGenerationArgs igenArgs)
         {
-            List<JobParameters> jp = new List<JobParameters>();
+            List<IJobParameters> jp = new List<IJobParameters>();
 
             try
             {
@@ -165,7 +166,8 @@ namespace BPMbenchmarksGenerator
 
         public static string GetStartingDirectory()
         {
-            return Directory.GetCurrentDirectory();
+            //return Directory.GetCurrentDirectory();
+            return "C:\\temp";
         }
 
         public static string CurrentSaveDirectoryStatus(string directory)
