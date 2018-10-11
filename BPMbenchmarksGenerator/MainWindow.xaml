@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BPMbenchmarksGenerator"
         mc:Ignorable="d"
-        Title="BPMbenhmarksGenerator" Height="486.5" Width="368" WindowStartupLocation="CenterScreen">
+        Title="BPMbenhmarksGenerator" 
+        x:Name="mWindow"  
+        Height="486.5" Width="368" WindowStartupLocation="CenterScreen">
     <Grid>
         <TabControl x:Name="tabSystem" HorizontalAlignment="Left" Height="437" Margin="10,10,0,0" VerticalAlignment="Top" Width="341" BorderBrush="#FF3E6DE9">
 
@@ -21,7 +23,10 @@
                             <Button x:Name="btnPath" Content="Path" Style="{StaticResource StillRectangleRadiusButton1}"
                                     Grid.Column="0" Click="btnPath_Click"  />
                             <Button  x:Name="btnExit" Content="Exit" Style="{StaticResource StillRectangleRadiusButton1}"
-                                    Grid.Column="1" Click="btnExit_Click" />
+                                    Grid.Column="1" Command="{Binding Path=DataContext.ExitCmd, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                             AncestorType={x:Type Window}}}"
+                                                    CommandParameter="{Binding ElementName = mWindow}"/>
                         </Grid>
 
                     </ToolBar>

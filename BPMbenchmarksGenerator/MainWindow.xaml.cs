@@ -62,10 +62,10 @@ namespace BPMbenchmarksGenerator
             }
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+       /* private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
+           // this.Close();
+        }*/
 
         private async void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
