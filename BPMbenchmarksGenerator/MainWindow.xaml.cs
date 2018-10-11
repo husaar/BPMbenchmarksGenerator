@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BPMbenchmarksGenerator.Models;
+using BPMbenchmarksGenerator.ViewModel;
+using BPMbenchmarksGenerator.Cmds;
 
 namespace BPMbenchmarksGenerator
 {
@@ -33,6 +35,7 @@ namespace BPMbenchmarksGenerator
             generationArgs = new GenerationArgs();
 
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel();
             MainWindowSetup();
 
         }

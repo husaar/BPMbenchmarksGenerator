@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace BPMbenchmarksGenerator.Cmds
 {
-    class ExitCommand
+    internal class ExitCommand : CommandBase
     {
+        public override bool CanExecute(object parameter) => true;
+
+        public override void Execute(object parameter)
+        {
+            
+        }
     }
 }
